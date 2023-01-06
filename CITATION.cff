@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: pinyin-to-ipa
+abstract: Command-line interface (CLI) to create a pronunciation dictionary by looking up IPA transcriptions using dragonmapper including the possibility of ignoring punctuation and splitting words on hyphens before transcribing them.
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - email: github@stefantaubert.com
+    given-names: Stefan
+    family-names: Taubert
+    affiliation: Chemnitz University of Technology
+    orcid: 'https://orcid.org/0000-0002-4932-2874'
+    website: 'https://stefantaubert.com'
+version: 0.0.2
+date-released: 2022-09-08
+license: MIT
+url: https://github.com/stefantaubert/pinyin-to-ipa
+doi: 

@@ -1,0 +1,123 @@
+[project]
+name = "pinyin-to-ipa"
+version = "0.0.2"
+description = "Command-line interface (CLI) to create a pronunciation dictionary by looking up IPA transcriptions using dragonmapper including the possibility of ignoring punctuation and splitting words on hyphens before transcribing them."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+  {email = "pypi@stefantaubert.com"},
+  {name = "Stefan Taubert"}
+]
+maintainers = [
+  {email = "pypi@stefantaubert.com"},
+  {name = "Stefan Taubert"}
+]
+keywords = [
+  "Pronunciation",
+  "Dictionary",
+  "Chinese",
+  "IPA",
+  "Language",
+  "Linguistics"
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Operating System :: OS Independent",
+  "Operating System :: MacOS",
+  "Operating System :: POSIX",
+  "Operating System :: POSIX :: BSD",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Unix",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+  "ordered-set >= 4.1.0",
+  "pypinyin >=0.47.1, < 0.48",
+]
+
+[project.urls]
+Homepage = "https://github.com/stefantaubert/pinyin-to-ipa"
+Issues = "https://github.com/stefantaubert/pinyin-to-ipa/issues"
+
+[project.scripts]
+pinyin-to-ipa-cli = "pinyin_to_ipa.cli:run_prod"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = [
+  "pinyin_to_ipa",
+]
+exclude = [
+  "pinyin_to_ipa_tests",
+  "pinyin_to_ipa_debug"
+]
+namespaces = true
+
+[tool.pytest.ini_options]
+log_cli = true
+log_level = "DEBUG"
+testpaths = [
+  "src/pinyin_to_ipa_tests",
+]
+
+[tool.autopep8]
+indent-size = 2
+ignore = ["E121"]
+max_line_length = 100
+
+[tool.isort]
+line_length = 100
+indent = 2
+known_first_party = [
+  "pinyin_to_ipa",
+]
+known_third_party = [
+  "pronunciation_dictionary",
+  "ordered_set",
+  "word_to_pronunciation",
+  "dragonmapper"
+]
+
+[tool.pyright]
+root = ["src"]
+include = ["src"]
+pythonPlatform = "All"
+typeCheckingMode = "off"
+stubPath = ""
+exclude = [
+  "**/node_modules",
+  "**/__pycache__",
+  ".git",
+  "**/*.egg-info",
+  "**/*_debug",
+]
+useLibraryCodeForTypes = true
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py{38,39,310}
+isolated_build = true
+
+[testenv]
+deps = 
+  pytest
+commands = 
+  pytest
+  pinyin-to-ipa-cli
+  pinyin-to-ipa-cli -v
+"""
+
+[build-system]
+requires = [
+  "setuptools >= 40.9.0",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"
