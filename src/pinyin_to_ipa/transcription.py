@@ -88,12 +88,12 @@ FINAL_MAPPING = {
 
 # Note: [ɻ̩ ~ ʐ̩], an apical retroflex voiced continuant,[a] in zhi, chi, shi, ri ([ʈʂɻ̩ ʈʂʰɻ̩ ʂɻ̩ ɻɻ̩]).
 FINAL_MAPPING_AFTER_ZH_CH_SH_R = {
-  "i": [("ɻ̩",)],
+  "i": [("ɻ̩",), ("ʐ̩",)],
 }
 
 # Note: [ɹ̩ ~ z̩], a laminal denti-alveolar voiced continuant,[a] in zi, ci, si ([tsɹ̩ tsʰɹ̩ sɹ̩]);
 FINAL_MAPPING_AFTER_Z_C_S = {
-  "i": [("ɹ̩",)],
+  "i": [("ɹ̩",), ("z̩",)],
 }
 
 # Note: ü is written as u after j, q, or x (the /u/ phoneme never occurs in these positions)
@@ -124,6 +124,8 @@ def pinyin_to_ipa(pinyin: str) -> Tuple[str, ...]:
     final_phonemes = None
     if pinyin_initial in {"zh", "ch", "sh", "r"} and pinyin_final in FINAL_MAPPING_AFTER_ZH_CH_SH_R:
       final_phonemes = FINAL_MAPPING_AFTER_ZH_CH_SH_R[pinyin_final]
+    elif pinyin_initial in {"z", "c", "s"} and pinyin_final in FINAL_MAPPING_AFTER_Z_C_S:
+      final_phonemes = FINAL_MAPPING_AFTER_Z_C_S[pinyin_final]
     elif pinyin_initial in {"j", "q", "x"} and pinyin_final in FINAL_MAPPING_AFTER_J_Q_X:
       final_phonemes = FINAL_MAPPING_AFTER_J_Q_X[pinyin_final]
     elif pinyin_initial in {"b", "p", "m", "f"} and pinyin_final in FINAL_MAPPING_AFTER_B_P_M_F:
@@ -140,5 +142,7 @@ def pinyin_to_ipa(pinyin: str) -> Tuple[str, ...]:
     tuple(itertools.chain.from_iterable(combination))
     for combination in itertools.product(*parts)
   )
+
+  # TODO: add tone stuff
 
   return all_syllable_combinations
