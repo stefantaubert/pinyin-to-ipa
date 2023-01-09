@@ -1,6 +1,6 @@
 [project]
 name = "pinyin-to-ipa"
-version = "0.0.2"
+version = "0.0.1"
 description = "Command-line interface (CLI) to create a pronunciation dictionary by looking up IPA transcriptions using dragonmapper including the possibility of ignoring punctuation and splitting words on hyphens before transcribing them."
 readme = "README.md"
 requires-python = ">=3.8"
@@ -47,7 +47,7 @@ Homepage = "https://github.com/stefantaubert/pinyin-to-ipa"
 Issues = "https://github.com/stefantaubert/pinyin-to-ipa/issues"
 
 [project.scripts]
-pinyin-to-ipa-cli = "pinyin_to_ipa.cli:run_prod"
+pinyin-to-ipa-cli = "pinyin_to_ipa_cli.cli:run_prod"
 
 [tool.setuptools.packages.find]
 where = ["src"]

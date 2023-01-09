@@ -104,6 +104,10 @@ def test_ang():
   result = pinyin_to_ipa("ang")
   assert result == OrderedSet([('a', 'ŋ')])
 
+def test_fěi():
+  result = pinyin_to_ipa("fěi")
+  assert result == OrderedSet([('f', 'ei̯˧˩˧')])
+
 
 def test_voc():
   voc = Path("res/most-syllables.txt").read_text("UTF-8")

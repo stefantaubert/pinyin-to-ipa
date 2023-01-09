@@ -1,0 +1,1 @@
+from pinyin_to_ipa.transcription import pinyin_to_ipa

@@ -4,7 +4,7 @@ from typing import Dict, Generator, List, Optional, Tuple
 from ordered_set import OrderedSet
 from pypinyin.contrib.tone_convert import to_finals, to_initials, to_normal, to_tone3
 
-# References
+# References:
 # https://en.wikipedia.org/wiki/Help:IPA/Mandarin
 # https://en.wikipedia.org/wiki/Standard_Chinese_phonology
 # https://en.wikipedia.org/wiki/Pinyin
@@ -12,8 +12,8 @@ from pypinyin.contrib.tone_convert import to_finals, to_initials, to_normal, to_
 
 INITIAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   "b": [("p",)],
-  "c": [("tsʰ",)],
-  "ch": [("ʈʂʰ",)],
+  "c": [("tsʰ",)],  # tsʰ
+  "ch": [("ʈʂʰ",)],  # tʂʰ
   "d": [("t",)],
   "f": [("f",)],
   "g": [("k",)],
@@ -31,7 +31,7 @@ INITIAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   "t": [("tʰ",)],
   "x": [("ɕ",)],
   "z": [("ts",)],
-  "zh": [("ʈʂ",)],
+  "zh": [("ʈʂ",)],  # tʂ
   # w and y only occur in non-strict initials
   # "w": [("w",)],
   # "y": [("j",), ("ɥ",)],
@@ -52,11 +52,11 @@ SYLLABIC_CONSONANT_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
 SYLLABIC_CONSONANTS = SYLLABIC_CONSONANT_MAPPINGS.keys()
 
 INTERJECTION_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
-  "io": [("j", "ɔ0")],
-  "ê": [("ɛ0",)],
+  "io": [("j", "ɔ0")],  # /
+  "ê": [("ɛ0",)],  # /
   # Note: In a small number of independent words or morphemes pronounced [ɚ] or [aɚ̯], written in pinyin as er (with some tone), such as 二 èr "two", 耳 ěr "ear", and 儿 (traditional 兒) ér "son". Similar to the sound in bar in English. Can also be pronounced [ɚ] depending on the speaker.
-  "er": [("ɚ0",), ("aɚ̯0",)],
-  "o": [("ɔ0",)],
+  "er": [("ɚ0",), ("aɚ̯0",)],  # ɑɻ
+  "o": [("ɔ0",)],  # ɔ
 }
 
 INTERJECTIONS = INTERJECTION_MAPPINGS.keys()
@@ -64,42 +64,42 @@ INTERJECTIONS = INTERJECTION_MAPPINGS.keys()
 
 # Duanmu (2000, p. 37) and Lin (2007)
 FINAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
-  "a": [("a0",)], # /
-  "ai": [("ai̯0",)], # aɪ̯
-  "an": [("a0", "n")], # an
-  "ang": [("a0", "ŋ")], # ɑŋ
-  "ao": [("au̯0",)], # ɑʊ̯
-  "e": [("ɤ0",)], # ɯ̯ʌ
-  "ei": [("ei̯0")], # eɪ̯
-  "en": [("ə0", "n")], # ən
-  "eng": [("ə0", "ŋ")], # əŋ
-  "i": [("i0",)], # i
-  "ia": [("j", "a0")], # i̯ɑ
-  "ian": [("j", "ɛ0", "n")], # iɛn
-  "iang": [("j", "a0", "ŋ")], # i̯ɑŋ
-  "iao": [("j", "au̯0")], # i̯ɑʊ̯
-  "ie": [("j", "e0")], # iɛ
-  "in": [("i0", "n")], # in
+  "a": [("a0",)],  # /
+  "ai": [("ai̯0",)],  # aɪ̯
+  "an": [("a0", "n")],  # an
+  "ang": [("a0", "ŋ")],  # ɑŋ
+  "ao": [("au̯0",)],  # ɑʊ̯
+  "e": [("ɤ0",)],  # ɯ̯ʌ
+  "ei": [("ei̯0",)],  # eɪ̯
+  "en": [("ə0", "n")],  # ən
+  "eng": [("ə0", "ŋ")],  # əŋ
+  "i": [("i0",)],  # i
+  "ia": [("j", "a0")],  # i̯ɑ
+  "ian": [("j", "ɛ0", "n")],  # iɛn
+  "iang": [("j", "a0", "ŋ")],  # i̯ɑŋ
+  "iao": [("j", "au̯0")],  # i̯ɑʊ̯
+  "ie": [("j", "e0")],  # iɛ
+  "in": [("i0", "n")],  # in
   # "iu": [("j", "ou̯0")], # i̯ɤʊ̯
-  "iou": [("j", "ou̯0")], # i̯ɤʊ̯
-  "ing": [("i0", "ŋ")], # iŋ
-  "iong": [("j", "ʊ0", "ŋ")], # i̯ʊŋ
-  "ong": [("ʊ0", "ŋ")], # ʊŋ
-  "ou": [("ou̯0",)], # ɤʊ̯
-  "u": [("u0",)], # u
+  "iou": [("j", "ou̯0")],  # i̯ɤʊ̯
+  "ing": [("i0", "ŋ")],  # iŋ
+  "iong": [("j", "ʊ0", "ŋ")],  # i̯ʊŋ
+  "ong": [("ʊ0", "ŋ")],  # ʊŋ
+  "ou": [("ou̯0",)],  # ɤʊ̯
+  "u": [("u0",)],  # u
   # "ui": [("w", "ei̯0")], # u̯eɪ̯
-  "uei": [("w", "ei̯0")], # u̯eɪ̯
-  "ua": [("w", "a0")], # u̯ɑ
-  "uai": [("w", "ai̯0")], # u̯aɪ̯
-  "uan": [("w", "a0", "n")], # u̯an
+  "uei": [("w", "ei̯0")],  # u̯eɪ̯
+  "ua": [("w", "a0")],  # u̯ɑ
+  "uai": [("w", "ai̯0")],  # u̯aɪ̯
+  "uan": [("w", "a0", "n")],  # u̯an
   # "un": [("w", "ə0", "n")], # u̯ən
-  "uen": [("w", "ə0", "n")], # u̯ən
-  "uang": [("w", "a0", "ŋ")], # u̯ɑŋ
-  "ueng": [("w", "ə0", "ŋ")], # /
-  "uo": [("w", "o0")], # u̯ɔ
+  "uen": [("w", "ə0", "n")],  # u̯ən
+  "uang": [("w", "a0", "ŋ")],  # u̯ɑŋ
+  "ueng": [("w", "ə0", "ŋ")],  # /
+  "uo": [("w", "o0")],  # u̯ɔ
   # Normally uo is written as o after b, p, m, or f
   # other cases (lo, yo) also considered as [wo]
-  "o": [("w", "o0")], # u̯ɔ
+  "o": [("w", "o0")],  # u̯ɔ
 
   # Note: Normally ü is written as u after j, q, or x
   #       (the /u/ phoneme never occurs in these positions)
@@ -115,13 +115,13 @@ FINALS = FINAL_MAPPING.keys()
 # Note: [ɻ̩ ~ ʐ̩], an apical retroflex voiced continuant
 #       in zhi, chi, shi, ri ([ʈʂɻ̩ ʈʂʰɻ̩ ʂɻ̩ ɻɻ̩]).
 FINAL_MAPPING_AFTER_ZH_CH_SH_R: Dict[str, List[Tuple[str, ...]]] = {
-  "i": [("ɻ̩0",), ("ʐ̩0",)], # ʅ
+  "i": [("ɻ̩0",), ("ʐ̩0",)],  # ʅ
 }
 
 # Note: [ɹ̩ ~ z̩], a laminal denti-alveolar voiced continuant,
 #       in zi, ci, si ([tsɹ̩ tsʰɹ̩ sɹ̩]);
 FINAL_MAPPING_AFTER_Z_C_S: Dict[str, List[Tuple[str, ...]]] = {
-  "i": [("ɹ̩0",), ("z̩0",)], # ɿ
+  "i": [("ɹ̩0",), ("z̩0",)],  # ɿ
 }
 
 # Note: Normally ü is written as u after j, q, or x
@@ -226,7 +226,7 @@ def apply_tone(variants: List[Tuple[str, ...]], tone: int) -> Generator[Tuple[st
    )
 
 
-def pinyin_to_ipa(pinyin: str) -> Tuple[str, ...]:
+def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
   tone_nr = get_tone(pinyin)
   pinyin_normal = to_normal(pinyin)
 
