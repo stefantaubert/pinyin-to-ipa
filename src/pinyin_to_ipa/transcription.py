@@ -1,8 +1,8 @@
 import itertools
-from typing import Tuple
+from typing import Dict, Generator, List, Optional, Tuple
 
 from ordered_set import OrderedSet
-from pypinyin.contrib.tone_convert import to_finals, to_initials, to_normal
+from pypinyin.contrib.tone_convert import to_finals, to_initials, to_normal, to_tone3
 
 # References
 # https://en.wikipedia.org/wiki/Help:IPA/Mandarin
@@ -10,7 +10,7 @@ from pypinyin.contrib.tone_convert import to_finals, to_initials, to_normal
 # https://en.wikipedia.org/wiki/Pinyin
 # https://de.wikipedia.org/wiki/Pinyin
 
-INITIAL_MAPPING = {
+INITIAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   "b": [("p",)],
   "c": [("tsʰ",)],
   "ch": [("ʈʂʰ",)],
@@ -32,117 +32,241 @@ INITIAL_MAPPING = {
   "x": [("ɕ",)],
   "z": [("ts",)],
   "zh": [("ʈʂ",)],
-  "w": [("w",)],
-  "y": [("j",), ("ɥ",)],
+  # w and y only occur in non-strict initials
+  # "w": [("w",)],
+  # "y": [("j",), ("ɥ",)],
 }
+
+INITIALS = INITIAL_MAPPING.keys()
+
+# Note: Syllabic consonants may also arise as a result of weak syllable reduction. Syllabic nasal consonants are also heard in certain interjections; pronunciations of such words include [m], [n], [ŋ], [hm], [hŋ].
+
+SYLLABIC_CONSONANT_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
+  "hm": [("h", "m0",)],
+  "hng": [("h", "ŋ0",)],
+  "m": [("m0",)],
+  "n": [("n0",)],
+  "ng": [("ŋ0",)],
+}
+
+SYLLABIC_CONSONANTS = SYLLABIC_CONSONANT_MAPPINGS.keys()
+
+INTERJECTION_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
+  "io": [("j", "ɔ0")],
+  "ê": [("ɛ0",)],
+  # Note: In a small number of independent words or morphemes pronounced [ɚ] or [aɚ̯], written in pinyin as er (with some tone), such as 二 èr "two", 耳 ěr "ear", and 儿 (traditional 兒) ér "son". Similar to the sound in bar in English. Can also be pronounced [ɚ] depending on the speaker.
+  "er": [("ɚ0",), ("aɚ̯0",)],
+  "o": [("ɔ0",)],
+}
+
+INTERJECTIONS = INTERJECTION_MAPPINGS.keys()
+
 
 # Duanmu (2000, p. 37) and Lin (2007)
-FINAL_MAPPING = {
-  "a": [("a",)],
-  "ai": [("ai̯",)],
-  "an": [("a", "n")],
-  "ang": [("a", "ŋ")],
-  "ao": [("au̯",)],
-  "e": [("ɤ",)],
-  "ei": [("ei̯")],
-  "en": [("ə", "n")],
-  "eng": [("ə", "ŋ")],
-  # Note: In a small number of independent words or morphemes pronounced [ɚ] or [aɚ̯], written in pinyin as er (with some tone), such as 二 èr "two", 耳 ěr "ear", and 儿 (traditional 兒) ér "son". Similar to the sound in bar in English. Can also be pronounced [ɚ] depending on the speaker.
-  "er": [("ɚ",), ("aɚ̯",)],
-  "i": [("i",)],
-  "ia": [("j", "a")],
-  "ian": [("j", "ɛ", "n")],
-  "iang": [("j", "a", "ŋ")],
-  "iao": [("j", "au̯")],
-  "ie": [("j", "e")],
-  "in": [("i", "n")],
-  "iu": [("j", "ou̯")],
-  "iou": [("j", "ou̯")],
-  "ing": [("i", "ŋ")],
-  "iong": [("j", "ʊ", "ŋ")],
-  "io": [("j", "ɔ")],  # interjection
-  "o": [("ɔ",)],  # interjection
-  "ong": [("ʊ", "ŋ")],
-  "ou": [("ou̯",)],
-  "u": [("u",)],
-  "ui": [("w", "ei̯")],
-  "uei": [("w", "ei̯")],
-  "ua": [("w", "a")],
-  "uai": [("w", "ai̯")],
-  "uan": [("w", "a", "n")],
-  "un": [("w", "ə", "n")],
-  "uen": [("w", "ə", "n")],
-  "uang": [("w", "a", "ŋ")],
-  "ueng": [("w", "ə", "ŋ")],
-  "uo": [("w", "o")],
-  "ü": [("y",)],
-  "v": [("y",)],
-  "üe": [("ɥ", "e")],
-  "ve": [("ɥ", "e")],
-  "üan": [("ɥ", "ɛ", "n")],
-  "van": [("ɥ", "ɛ", "n")],
-  "ün": [("y", "n")],
-  "vn": [("y", "n")],
-  "ê": [("ɛ",)],  # interjection
+FINAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
+  "a": [("a0",)], # /
+  "ai": [("ai̯0",)], # aɪ̯
+  "an": [("a0", "n")], # an
+  "ang": [("a0", "ŋ")], # ɑŋ
+  "ao": [("au̯0",)], # ɑʊ̯
+  "e": [("ɤ0",)], # ɯ̯ʌ
+  "ei": [("ei̯0")], # eɪ̯
+  "en": [("ə0", "n")], # ən
+  "eng": [("ə0", "ŋ")], # əŋ
+  "i": [("i0",)], # i
+  "ia": [("j", "a0")], # i̯ɑ
+  "ian": [("j", "ɛ0", "n")], # iɛn
+  "iang": [("j", "a0", "ŋ")], # i̯ɑŋ
+  "iao": [("j", "au̯0")], # i̯ɑʊ̯
+  "ie": [("j", "e0")], # iɛ
+  "in": [("i0", "n")], # in
+  # "iu": [("j", "ou̯0")], # i̯ɤʊ̯
+  "iou": [("j", "ou̯0")], # i̯ɤʊ̯
+  "ing": [("i0", "ŋ")], # iŋ
+  "iong": [("j", "ʊ0", "ŋ")], # i̯ʊŋ
+  "ong": [("ʊ0", "ŋ")], # ʊŋ
+  "ou": [("ou̯0",)], # ɤʊ̯
+  "u": [("u0",)], # u
+  # "ui": [("w", "ei̯0")], # u̯eɪ̯
+  "uei": [("w", "ei̯0")], # u̯eɪ̯
+  "ua": [("w", "a0")], # u̯ɑ
+  "uai": [("w", "ai̯0")], # u̯aɪ̯
+  "uan": [("w", "a0", "n")], # u̯an
+  # "un": [("w", "ə0", "n")], # u̯ən
+  "uen": [("w", "ə0", "n")], # u̯ən
+  "uang": [("w", "a0", "ŋ")], # u̯ɑŋ
+  "ueng": [("w", "ə0", "ŋ")], # /
+  "uo": [("w", "o0")], # u̯ɔ
+  # Normally uo is written as o after b, p, m, or f
+  # other cases (lo, yo) also considered as [wo]
+  "o": [("w", "o0")], # u̯ɔ
+
+  # Note: Normally ü is written as u after j, q, or x
+  #       (the /u/ phoneme never occurs in these positions)
+  #       pypinyin returns u as ü after (y), j, q, or x
+  "ü": [("y0",)],  # u after y, j, q, or x ; # y
+  "üe": [("ɥ", "e0")],  # ue after y, j, q, or x ; # y̯œ
+  "üan": [("ɥ", "ɛ0", "n")],  # uan after y, j, q, or x ; # /
+  "ün": [("y0", "n")],  # un after y, j, q, or x
 }
 
-# Note: [ɻ̩ ~ ʐ̩], an apical retroflex voiced continuant,[a] in zhi, chi, shi, ri ([ʈʂɻ̩ ʈʂʰɻ̩ ʂɻ̩ ɻɻ̩]).
-FINAL_MAPPING_AFTER_ZH_CH_SH_R = {
-  "i": [("ɻ̩",), ("ʐ̩",)],
+FINALS = FINAL_MAPPING.keys()
+
+# Note: [ɻ̩ ~ ʐ̩], an apical retroflex voiced continuant
+#       in zhi, chi, shi, ri ([ʈʂɻ̩ ʈʂʰɻ̩ ʂɻ̩ ɻɻ̩]).
+FINAL_MAPPING_AFTER_ZH_CH_SH_R: Dict[str, List[Tuple[str, ...]]] = {
+  "i": [("ɻ̩0",), ("ʐ̩0",)], # ʅ
 }
 
-# Note: [ɹ̩ ~ z̩], a laminal denti-alveolar voiced continuant,[a] in zi, ci, si ([tsɹ̩ tsʰɹ̩ sɹ̩]);
-FINAL_MAPPING_AFTER_Z_C_S = {
-  "i": [("ɹ̩",), ("z̩",)],
+# Note: [ɹ̩ ~ z̩], a laminal denti-alveolar voiced continuant,
+#       in zi, ci, si ([tsɹ̩ tsʰɹ̩ sɹ̩]);
+FINAL_MAPPING_AFTER_Z_C_S: Dict[str, List[Tuple[str, ...]]] = {
+  "i": [("ɹ̩0",), ("z̩0",)], # ɿ
 }
 
-# Note: ü is written as u after j, q, or x (the /u/ phoneme never occurs in these positions)
-FINAL_MAPPING_AFTER_J_Q_X = {
-  "u": FINAL_MAPPING["ü"],
-  "ue": FINAL_MAPPING["üe"],
-  "uan": FINAL_MAPPING["üan"],
-  "un": FINAL_MAPPING["ün"],
-}
+# Note: Normally ü is written as u after j, q, or x
+#       (the /u/ phoneme never occurs in these positions)
+#       but in pypinyin this is not the case, e.g. it returns ü for ju
+# FINAL_MAPPING_AFTER_J_Q_X = {
+#   "u": FINAL_MAPPING["ü"],
+#   "ue": FINAL_MAPPING["üe"],
+#   "uan": FINAL_MAPPING["üan"],
+#   "un": FINAL_MAPPING["ün"],
+# }
 
 # Note: uo is written as o after b, p, m, or f.
-FINAL_MAPPING_AFTER_B_P_M_F = {
-  "o": FINAL_MAPPING["ou"]
+# FINAL_MAPPING_AFTER_B_P_M_F = {
+#   "o": FINAL_MAPPING["uo"]
+# }
+
+TONE_MAPPING = {
+  1: "˥",  # ā
+  2: "˧˥",  # á
+  3: "˧˩˧",  # ǎ
+  4: "˥˩",  # à
+  5: "",  # a
 }
+
+
+def get_tone(pinyin: str) -> int:
+  pinyin_tone3 = to_tone3(pinyin, neutral_tone_with_five=True)
+  if len(pinyin_tone3) == 0:
+    raise ValueError("Parameter 'pinyin': Tone couldn't be detected!")
+
+  tone_nr_str = pinyin_tone3[-1]
+
+  try:
+    tone_nr = int(tone_nr_str)
+  except ValueError as error:
+    raise ValueError(f"Parameter 'pinyin': Tone '{tone_nr_str}' couldn't be detected!") from error
+
+  # Note: in case to_tone3 returns other values than expected
+  if tone_nr not in TONE_MAPPING:
+    raise ValueError(f"Parameter 'pinyin': Tone '{tone_nr_str}' couldn't be detected!")
+
+  return tone_nr
+
+
+def get_syllabic_consonant(normal_pinyin: str) -> Optional[str]:
+  if normal_pinyin in SYLLABIC_CONSONANTS:
+    return normal_pinyin
+  return None
+
+
+def get_interjection(normal_pinyin: str) -> Optional[str]:
+  if normal_pinyin in INTERJECTIONS:
+    return normal_pinyin
+  return None
+
+
+def get_initials(normal_pinyin: str) -> Optional[str]:
+  if normal_pinyin in SYLLABIC_CONSONANTS:
+    return None
+
+  if normal_pinyin in INTERJECTIONS:
+    return None
+
+  pinyin_initial = to_initials(normal_pinyin, strict=True)
+
+  if pinyin_initial == "":
+    return None
+
+  # in case pypinyin returns unexpected result
+  if pinyin_initial not in INITIAL_MAPPING:
+    raise ValueError(
+      f"Parameter 'normal_pinyin': Initial '{pinyin_initial}' couldn't be detected!")
+
+  return pinyin_initial
+
+
+def get_finals(normal_pinyin: str) -> Optional[str]:
+  if normal_pinyin in SYLLABIC_CONSONANTS:
+    return None
+
+  if normal_pinyin in INTERJECTIONS:
+    return None
+
+  pinyin_final = to_finals(normal_pinyin, strict=True, v_to_u=True)
+
+  if pinyin_final == "":
+    raise ValueError("Parameter 'normal_pinyin': Final couldn't be detected!")
+
+  # in case pypinyin returns unexpected result
+  if pinyin_final not in FINAL_MAPPING:
+    raise ValueError(f"Parameter 'normal_pinyin': Final '{pinyin_final}' couldn't be detected!")
+
+  return pinyin_final
+
+
+def apply_tone(variants: List[Tuple[str, ...]], tone: int) -> Generator[Tuple[str, ...], None, None]:
+  tone_ipa = TONE_MAPPING[tone]
+  yield from (
+    tuple(phoneme.replace("0", tone_ipa) for phoneme in variant)
+    for variant in variants
+   )
 
 
 def pinyin_to_ipa(pinyin: str) -> Tuple[str, ...]:
+  tone_nr = get_tone(pinyin)
+  pinyin_normal = to_normal(pinyin)
+
+  interjection = get_interjection(pinyin_normal)
+  if interjection is not None:
+    interjection_ipa = INTERJECTION_MAPPINGS[pinyin_normal]
+    interjection_ipa = OrderedSet(apply_tone(interjection_ipa, tone_nr))
+    return interjection_ipa
+
+  syllabic_consonant = get_syllabic_consonant(pinyin_normal)
+  if syllabic_consonant is not None:
+    syllabic_consonant_ipa = SYLLABIC_CONSONANT_MAPPINGS[syllabic_consonant]
+    syllabic_consonant_ipa = OrderedSet(apply_tone(syllabic_consonant_ipa, tone_nr))
+    return syllabic_consonant_ipa
+
   parts = []
-  pinyin = to_normal(pinyin)
-  pinyin_initial = to_initials(pinyin)
-  if pinyin_initial != "":
-    assert pinyin_initial in INITIAL_MAPPING
-    initial_phoneme = INITIAL_MAPPING[pinyin_initial]
-    parts.append(initial_phoneme)
+  pinyin_initial = get_initials(pinyin_normal)
+  pinyin_final = get_finals(pinyin_normal)
+  assert pinyin_final is not None
 
-  pinyin_final = to_finals(pinyin)
-  if pinyin_final != "":
-    final_phonemes = None
-    if pinyin_initial in {"zh", "ch", "sh", "r"} and pinyin_final in FINAL_MAPPING_AFTER_ZH_CH_SH_R:
-      final_phonemes = FINAL_MAPPING_AFTER_ZH_CH_SH_R[pinyin_final]
-    elif pinyin_initial in {"z", "c", "s"} and pinyin_final in FINAL_MAPPING_AFTER_Z_C_S:
-      final_phonemes = FINAL_MAPPING_AFTER_Z_C_S[pinyin_final]
-    elif pinyin_initial in {"j", "q", "x"} and pinyin_final in FINAL_MAPPING_AFTER_J_Q_X:
-      final_phonemes = FINAL_MAPPING_AFTER_J_Q_X[pinyin_final]
-    elif pinyin_initial in {"b", "p", "m", "f"} and pinyin_final in FINAL_MAPPING_AFTER_B_P_M_F:
-      final_phonemes = FINAL_MAPPING_AFTER_B_P_M_F[pinyin_final]
-    else:
-      assert pinyin_final in FINAL_MAPPING
-      final_phonemes = FINAL_MAPPING[pinyin_final]
+  if pinyin_initial is not None:
+    initial_phonemes = INITIAL_MAPPING[pinyin_initial]
+    parts.append(initial_phonemes)
 
-    parts.append(final_phonemes)
+  final_phonemes: List[Tuple[str, ...]] = None
+  if pinyin_initial in {"zh", "ch", "sh", "r"} and pinyin_final in FINAL_MAPPING_AFTER_ZH_CH_SH_R:
+    final_phonemes = FINAL_MAPPING_AFTER_ZH_CH_SH_R[pinyin_final]
+  elif pinyin_initial in {"z", "c", "s"} and pinyin_final in FINAL_MAPPING_AFTER_Z_C_S:
+    final_phonemes = FINAL_MAPPING_AFTER_Z_C_S[pinyin_final]
+  else:
+    final_phonemes = FINAL_MAPPING[pinyin_final]
 
-  assert len(parts) > 0
+  final_phonemes = list(apply_tone(final_phonemes, tone_nr))
+  parts.append(final_phonemes)
+
+  assert len(parts) >= 1
 
   all_syllable_combinations = OrderedSet(
     tuple(itertools.chain.from_iterable(combination))
     for combination in itertools.product(*parts)
   )
-
-  # TODO: add tone stuff
 
   return all_syllable_combinations
