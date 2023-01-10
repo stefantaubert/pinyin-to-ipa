@@ -104,6 +104,7 @@ def test_ang():
   result = pinyin_to_ipa("ang")
   assert result == OrderedSet([('a', 'ŋ')])
 
+
 def test_fěi():
   result = pinyin_to_ipa("fěi")
   assert result == OrderedSet([('f', 'ei̯˧˩˧')])
@@ -115,5 +116,19 @@ def test_voc():
   result = []
   for syllable in syllables:
     res = pinyin_to_ipa(syllable)
+    result.append((syllable, res))
+  assert len(result) == len(syllables)
+
+
+def test_voc_toneless():
+  voc = Path("res/most-syllables-toneless.txt").read_text("UTF-8")
+  syllables = voc.splitlines()
+  result = []
+  failed = OrderedSet()
+  for syllable in syllables:
+    try:
+      res = pinyin_to_ipa(syllable)
+    except ValueError as error:
+      failed.add(syllable)
     result.append((syllable, res))
   assert len(result) == len(syllables)

@@ -36,6 +36,11 @@ def test_invalid_pinyin__abc__raises_no_value_error():
   assert result is None
 
 
+def test_buggy_pinyin__lün__raises_no_value_error():
+  result = get_initials("lün")
+  assert result == "l"
+
+
 def test_invalid_pinyin__qqing__raises_no_value_error():
   result = get_initials("qqing")
   assert result == "q"

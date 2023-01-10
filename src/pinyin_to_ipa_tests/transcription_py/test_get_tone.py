@@ -24,9 +24,21 @@ def test_non_pinyin_with_question_mark__raises_value_error():
   assert error.value.args[0] == "Parameter 'pinyin': Tone 'c' couldn't be detected!"
 
 
-def test_invalid_pinyin__lün__raises_value_error():
+def test_buggy_pinyin__lün__raises_value_error__is_fail():
   with raises(ValueError) as error:
     get_tone("lün")
+  assert error.value.args[0] == "Parameter 'pinyin': Tone 'n' couldn't be detected!"
+
+
+def test_buggy_pinyin__lün2__raises_value_error__is_fail():
+  with raises(ValueError) as error:
+    get_tone("lǘn")  # tone 2
+  assert error.value.args[0] == "Parameter 'pinyin': Tone 'n' couldn't be detected!"
+
+
+def test_buggy_pinyin__lün3__raises_value_error__is_fail():
+  with raises(ValueError) as error:
+    get_tone("lün3")
   assert error.value.args[0] == "Parameter 'pinyin': Tone 'n' couldn't be detected!"
 
 

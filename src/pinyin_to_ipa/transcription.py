@@ -25,7 +25,7 @@ INITIAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   "n": [("n",)],
   "p": [("pʰ",)],
   "q": [("tɕʰ",)],
-  "r": [("ʐ",), ("ɻ",)],
+  "r": [("ɻ",), ("ʐ",)],
   "s": [("s",)],
   "sh": [("ʂ",)],
   "t": [("tʰ",)],
@@ -149,7 +149,7 @@ TONE_MAPPING = {
 
 
 def get_tone(pinyin: str) -> int:
-  pinyin_tone3 = to_tone3(pinyin, neutral_tone_with_five=True)
+  pinyin_tone3 = to_tone3(pinyin, neutral_tone_with_five=True, v_to_u=True)
   if len(pinyin_tone3) == 0:
     raise ValueError("Parameter 'pinyin': Tone couldn't be detected!")
 

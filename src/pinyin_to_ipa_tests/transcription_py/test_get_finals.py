@@ -188,6 +188,11 @@ def test_zero_cons__yin__returns_in():
   assert result == "in"
 
 
+def test_buggy_pinyin__lün__raises_no_value_error():
+  result = get_finals("lün")
+  assert result == "ün"
+
+
 def test_invalid_pinyin__raises_value_error():
   with raises(ValueError) as error:
     get_finals("zue")
