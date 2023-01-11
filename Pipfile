@@ -18,7 +18,7 @@ tox = "*"
 
 [packages]
 ordered-set = ">=4.1.0"
-pypinyin = ">=0.47.1"
+pypinyin = ">=0.47.1, <0.48"
 
 [requires]
 python_version = "3.8"

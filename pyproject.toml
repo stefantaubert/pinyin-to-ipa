@@ -1,7 +1,7 @@
 [project]
 name = "pinyin-to-ipa"
 version = "0.0.1"
-description = "Command-line interface (CLI) to create a pronunciation dictionary by looking up IPA transcriptions using dragonmapper including the possibility of ignoring punctuation and splitting words on hyphens before transcribing them."
+description = "Command-line interface (CLI) and Python library to transcribe pinyin to IPA."
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
@@ -18,6 +18,7 @@ keywords = [
   "Dictionary",
   "Chinese",
   "IPA",
+  "Pinyin",
   "Language",
   "Linguistics"
 ]
@@ -35,6 +36,7 @@ classifiers = [
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
@@ -53,9 +55,11 @@ pinyin-to-ipa-cli = "pinyin_to_ipa_cli.cli:run_prod"
 where = ["src"]
 include = [
   "pinyin_to_ipa",
+  "pinyin_to_ipa_cli",
+  "pinyin_to_ipa_tests",
+  "pinyin_to_ipa_tests.*",
 ]
 exclude = [
-  "pinyin_to_ipa_tests",
   "pinyin_to_ipa_debug"
 ]
 namespaces = true
@@ -103,7 +107,7 @@ useLibraryCodeForTypes = true
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{38,39,310}
+envlist = py{38,39,310,311}
 isolated_build = true
 
 [testenv]

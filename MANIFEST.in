@@ -1,0 +1,3 @@
+include res/most-syllables-toneless.txt
+include res/most-syllables.txt
+include res/possible-syllables-tone3.txt

@@ -43,7 +43,7 @@ def configure_logger(productive: bool) -> None:
     main_logger.addHandler(console)
 
   logging_formatter = logging.Formatter(
-    '[%(asctime)s.%(msecs)03d] (%(levelname)s) %(message)s',
+    '%(message)s',
     '%Y/%m/%d %H:%M:%S',
   )
   console.setFormatter(logging_formatter)
@@ -58,13 +58,14 @@ def parse_args(args: List[str], productive: bool = False):
   parser = _init_parser()
   if len(args) == 0:
     parser.print_help()
-    return
+    sys.exit(0)
 
   try:
     received_args = parser.parse_args(args)
-  except SystemExit:
-    # invalid command supplied
-    sys.exit(1)
+  except SystemExit as error:
+    error_code = error.args[0]
+    # -v -> 0; invalid arg -> 2
+    sys.exit(error_code)
 
   params = vars(received_args)
 

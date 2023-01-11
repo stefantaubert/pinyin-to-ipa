@@ -6,8 +6,8 @@
 [![PyPI](https://img.shields.io/pypi/wheel/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
 [![PyPI](https://img.shields.io/pypi/implementation/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
 
-Command-line interface (CLI) to create a pronunciation dictionary by looking up IPA transcriptions using [dragonmapper](https://github.com/tsroten/dragonmapper) including the possibility of ignoring punctuation and splitting words on hyphens before transcribing them.
-Instead of attaching the tones to the syllable the tones are attached to the vowel of the syllable.
+Command-line interface (CLI) and Python library to transcribe pinyin to IPA.
+The tones are attached to the vowel of the syllable.
 
 ## Installation
 
@@ -24,44 +24,50 @@ pinyin-to-ipa-cli
 ### Example
 
 ```sh
-# Create example vocabulary
-cat > /tmp/vocabulary.txt << EOF
-社会语言学？
-㐻，
-『㑐
-鲜-亮。
-『占斌？
-『机具-机呀？
-EOF
-
-# Create dictionary from vocabulary
-pinyin-to-ipa-cli \
-  /tmp/vocabulary.txt \
-  /tmp/result.dict \
-  --split-on-hyphen \
-  --n-jobs 4
-
-cat /tmp/result.dict
+$ pinyin-to-ipa-cli "pang1" 
+pʰa˥ŋ
+$ pinyin-to-ipa-cli "pang2" 
+pʰa˧˥ŋ
+$ pinyin-to-ipa-cli "pang3" 
+pʰa˧˩˧ŋ
+$ pinyin-to-ipa-cli "pang4" 
+pʰa˥˩ŋ
+$ pinyin-to-ipa-cli "pang5" 
+pʰaŋ
+$ pinyin-to-ipa-cli "pang" 
+pʰaŋ
+$ pinyin-to-ipa-cli "hàng" 
+xa˥˩ŋ
+ha˥˩ŋ
+$ pinyin-to-ipa-cli "hàng" --first
+xa˥˩ŋ
+$ pinyin-to-ipa-cli "hng" 
+hŋ
+$ pinyin-to-ipa-cli "test" 
+No IPA transcription available!
 ```
 
-Output:
+```py
+from pinyin_to_ipa import pinyin_to_ipa
 
-```txt
-社会语言学？  ʂ ɤ˥˩ x w eɪ˥˩ y˧˩˧ j ɛ˧˥ n ɕ ɥ œ˧˥ ？
-㐻，  n eɪ˥˩ ，
-『㑐  『 ʂ u˥
-鲜-亮。  ɕ j ɛ˥ n - l j ɑ˥˩ ŋ 。
-『占斌？  『 ʈʂ a˥˩ n p i˥ n ？
-『机具-机呀？  『 tɕ i˥ tɕ y˥˩ - tɕ i˥ j a ？
+print(pinyin_to_ipa("hang4"))
+# OrderedSet([('x', 'a˥˩', 'ŋ'), ('h', 'a˥˩', 'ŋ')])
+
+print(pinyin_to_ipa("ng"))
+# OrderedSet([('ŋ',)])
 ```
 
 ## Phoneme Set
 
 ```txt
 a
-aɪ
-eɪ
+aɚ̯
+ai̯
+au̯
+e
+ei̯
 f
+h
 i
 j
 k
@@ -69,7 +75,8 @@ kʰ
 l
 m
 n
-oʊ
+o
+ou̯
 p
 pʰ
 s
@@ -84,23 +91,22 @@ w
 x
 y
 ŋ
-œ
-ɑ
-ɑʊ
-ɔ
 ɕ
 ə
+ɚ
 ɛ
 ɤ
 ɥ
-ɨ
-ɯ
+ɹ̩
 ɻ
+ɻ̩
 ʂ
 ʈʂ
 ʈʂʰ
 ʊ
+z̩
 ʐ
+ʐ̩
 ```
 
 Vowels and diphthongs contain one of these tones:
@@ -115,11 +121,8 @@ Vowels and diphthongs contain one of these tones:
 
 ## Dependencies
 
-- `pronunciation-dictionary >= 0.0.4`
 - `ordered-set >= 4.1.0`
-- `word-to-pronunciation >= 0.0.1`
-- `dragonmapper >=0.2.6, < 0.3`
-- `tqdm`
+- `pypinyin = ">=0.47.1, <0.48"`
 
 ## License
 
@@ -127,7 +130,7 @@ MIT License
 
 ## Acknowledgments
 
-[dragonmapper](https://github.com/tsroten/dragonmapper)
+[pypinyin](https://github.com/mozillazg/python-pinyin)
 
 Funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) – Project-ID 416228727 – CRC 1410
 

@@ -1,7 +1,4 @@
-from pathlib import Path
 
-from ordered_set import OrderedSet
-from pytest import raises
 
 from pinyin_to_ipa.transcription import get_initials
 
