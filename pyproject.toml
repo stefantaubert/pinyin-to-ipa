@@ -83,10 +83,8 @@ known_first_party = [
   "pinyin_to_ipa",
 ]
 known_third_party = [
-  "pronunciation_dictionary",
   "ordered_set",
-  "word_to_pronunciation",
-  "dragonmapper"
+  "pypinyin"
 ]
 
 [tool.pyright]
