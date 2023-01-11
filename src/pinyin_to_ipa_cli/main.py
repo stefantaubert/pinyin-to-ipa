@@ -6,7 +6,7 @@ from pinyin_to_ipa_cli.argparse_helper import parse_non_empty_or_whitespace
 
 
 def get_app_try_add_vocabulary_from_pronunciations_parser(parser: ArgumentParser):
-  parser.description = "Command-line interface (CLI) to create a pronunciation dictionary by looking up IPA transcriptions using dragonmapper including the possibility of ignoring punctuation and splitting words on hyphens before transcribing them."
+  parser.description = "Command-line interface (CLI) to transcribe pinyin to IPA."
   parser.add_argument("pinyin", metavar='PINYIN', type=parse_non_empty_or_whitespace,
                       help="pinyin")
   parser.add_argument("--sep", type=str, help="separator between phonemes", default="")

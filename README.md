@@ -18,8 +18,19 @@ pip install pinyin-to-ipa --user
 
 ## Usage
 
-```sh
-pinyin-to-ipa-cli
+```txt
+usage: pinyin-to-ipa-cli [-h] [-v] [--sep SEP] [--first] PINYIN
+
+Command-line interface (CLI) to transcribe pinyin to IPA.
+
+positional arguments:
+  PINYIN         pinyin
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --version  show program's version number and exit
+  --sep SEP      separator between phonemes (default: )
+  --first        return only first result (default: False)
 ```
 
 ### Example
