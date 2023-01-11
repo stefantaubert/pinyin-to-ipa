@@ -9,6 +9,9 @@ from pypinyin.contrib.tone_convert import to_finals, to_initials, to_normal, to_
 # https://en.wikipedia.org/wiki/Standard_Chinese_phonology
 # https://en.wikipedia.org/wiki/Pinyin
 # https://de.wikipedia.org/wiki/Pinyin
+# Duanmu, San. 2007. The Phonology of Standard Chinese. 2nd ed. Oxford ; New York: Oxford University Press.
+# Lin, Yen-Hwei. 2007. The Sounds of Chinese. Cambridge, UK ; New York: Cambridge University Press.
+
 
 INITIAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   "b": [("p",)],
@@ -40,7 +43,6 @@ INITIAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
 INITIALS = INITIAL_MAPPING.keys()
 
 # Note: Syllabic consonants may also arise as a result of weak syllable reduction. Syllabic nasal consonants are also heard in certain interjections; pronunciations of such words include [m], [n], [ŋ], [hm], [hŋ].
-
 SYLLABIC_CONSONANT_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
   "hm": [("h", "m0",)],
   "hng": [("h", "ŋ0",)],
@@ -55,6 +57,7 @@ INTERJECTION_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
   "io": [("j", "ɔ0")],  # /
   "ê": [("ɛ0",)],  # /
   # Note: In a small number of independent words or morphemes pronounced [ɚ] or [aɚ̯], written in pinyin as er (with some tone), such as 二 èr "two", 耳 ěr "ear", and 儿 (traditional 兒) ér "son". Similar to the sound in bar in English. Can also be pronounced [ɚ] depending on the speaker.
+  # Duanmu (2007, p. 40)
   "er": [("ɚ0",), ("aɚ̯0",)],  # ɑɻ
   "o": [("ɔ0",)],  # ɔ
 }
@@ -62,7 +65,9 @@ INTERJECTION_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
 INTERJECTIONS = INTERJECTION_MAPPINGS.keys()
 
 
-# Duanmu (2000, p. 37) and Lin (2007)
+# Duanmu (2000, p. 37) and Lin (2007, p. 68f)
+# Diphtongs from Duanmu (2007, p. 40): au, əu, əi, ai
+# Dipthongs from Lin (2007, p. 68f): au̯, ou̯, ei̯, ai̯
 FINAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   "a": [("a0",)],  # /
   "ai": [("ai̯0",)],  # aɪ̯
@@ -114,12 +119,16 @@ FINALS = FINAL_MAPPING.keys()
 
 # Note: [ɻ̩ ~ ʐ̩], an apical retroflex voiced continuant
 #       in zhi, chi, shi, ri ([ʈʂɻ̩ ʈʂʰɻ̩ ʂɻ̩ ɻɻ̩]).
+# Duanmu (2007, p. 34f)
+# Lin (2007, p. 72)
 FINAL_MAPPING_AFTER_ZH_CH_SH_R: Dict[str, List[Tuple[str, ...]]] = {
   "i": [("ɻ̩0",), ("ʐ̩0",)],  # ʅ
 }
 
 # Note: [ɹ̩ ~ z̩], a laminal denti-alveolar voiced continuant,
 #       in zi, ci, si ([tsɹ̩ tsʰɹ̩ sɹ̩]);
+# Duanmu (2007, p. 34f)
+# Lin (2007, p. 72)
 FINAL_MAPPING_AFTER_Z_C_S: Dict[str, List[Tuple[str, ...]]] = {
   "i": [("ɹ̩0",), ("z̩0",)],  # ɿ
 }
