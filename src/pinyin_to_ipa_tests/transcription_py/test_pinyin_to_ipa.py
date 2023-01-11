@@ -19,7 +19,7 @@ def test_whitespace():
     pinyin_to_ipa(" ")
 
 
-def test_non_pinyin_a_raises_value_error():
+def test_non_pinyin_a__raises_value_error():
   with raises(ValueError) as error:
     pinyin_to_ipa("?abc")
   assert error.value.args[0] == "Parameter 'pinyin': Tone 'c' couldn't be detected!"

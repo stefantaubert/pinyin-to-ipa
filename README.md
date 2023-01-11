@@ -5,6 +5,7 @@
 [![MIT](https://img.shields.io/github/license/stefantaubert/pinyin-to-ipa.svg)](https://github.com/stefantaubert/pinyin-to-ipa/blob/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/wheel/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
 [![PyPI](https://img.shields.io/pypi/implementation/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7524691.svg)](https://doi.org/10.5281/zenodo.7524691)
 
 Command-line interface (CLI) and Python library to transcribe pinyin to IPA.
 The tones are attached to the vowel of the syllable.
@@ -127,6 +128,15 @@ Vowels and diphthongs contain one of these tones:
 ## License
 
 MIT License
+
+## References
+
+- https://en.wikipedia.org/wiki/Help:IPA/Mandarin
+- https://en.wikipedia.org/wiki/Standard_Chinese_phonology
+- https://en.wikipedia.org/wiki/Pinyin
+- https://de.wikipedia.org/wiki/Pinyin
+- Duanmu, San. 2007. The Phonology of Standard Chinese. 2nd ed. Oxford ; New York: Oxford University Press.
+- Lin, Yen-Hwei. 2007. The Sounds of Chinese. Cambridge, UK ; New York: Cambridge University Press.
 
 ## Acknowledgments
 
