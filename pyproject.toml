@@ -3,7 +3,7 @@ name = "pinyin-to-ipa"
 version = "0.0.1"
 description = "Command-line interface (CLI) and Python library to transcribe pinyin to IPA."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.8, <4"
 license = {text = "MIT"}
 authors = [
   {email = "pypi@stefantaubert.com"},
