@@ -1,3 +1,28 @@
 include res/most-syllables-toneless.txt
 include res/most-syllables.txt
 include res/possible-syllables-tone3.txt
+
+graft src/pinyin_to_ipa_tests/
+
+include \
+  pylintrc \
+  CHANGELOG.md \
+  CODE_OF_CONDUCT.md \
+  CONTRIBUTING.md \
+  CITATION.cff \
+  LICENSE \
+  MANIFEST.in \
+  Pipfile \
+  Pipfile.lock \
+  README.md \
+  pyproject.toml \
+  setup.cfg
+
+global-exclude \
+  *~ \
+  *.py[cod] \
+  *.so \
+  .DS_Store
+
+prune .*/
+prune **/__pycache__/

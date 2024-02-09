@@ -67,7 +67,7 @@ INTERJECTIONS = INTERJECTION_MAPPINGS.keys()
 
 # Duanmu (2000, p. 37) and Lin (2007, p. 68f)
 # Diphtongs from Duanmu (2007, p. 40): au, əu, əi, ai
-# Dipthongs from Lin (2007, p. 68f): au̯, ou̯, ei̯, ai̯
+# Diphthongs from Lin (2007, p. 68f): au̯, ou̯, ei̯, ai̯
 FINAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   "a": [("a0",)],  # /
   "ai": [("ai̯0",)],  # aɪ̯
@@ -241,14 +241,14 @@ def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
 
   interjection = get_interjection(pinyin_normal)
   if interjection is not None:
-    interjection_ipa = INTERJECTION_MAPPINGS[pinyin_normal]
-    interjection_ipa = OrderedSet(apply_tone(interjection_ipa, tone_nr))
+    interjection_ipa_mapping = INTERJECTION_MAPPINGS[pinyin_normal]
+    interjection_ipa = OrderedSet(apply_tone(interjection_ipa_mapping, tone_nr))
     return interjection_ipa
 
   syllabic_consonant = get_syllabic_consonant(pinyin_normal)
   if syllabic_consonant is not None:
-    syllabic_consonant_ipa = SYLLABIC_CONSONANT_MAPPINGS[syllabic_consonant]
-    syllabic_consonant_ipa = OrderedSet(apply_tone(syllabic_consonant_ipa, tone_nr))
+    syllabic_consonant_ipa_mapping = SYLLABIC_CONSONANT_MAPPINGS[syllabic_consonant]
+    syllabic_consonant_ipa = OrderedSet(apply_tone(syllabic_consonant_ipa_mapping, tone_nr))
     return syllabic_consonant_ipa
 
   parts = []
@@ -260,7 +260,7 @@ def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
     initial_phonemes = INITIAL_MAPPING[pinyin_initial]
     parts.append(initial_phonemes)
 
-  final_phonemes: List[Tuple[str, ...]] = None
+  final_phonemes: List[Tuple[str, ...]]
   if pinyin_initial in {"zh", "ch", "sh", "r"} and pinyin_final in FINAL_MAPPING_AFTER_ZH_CH_SH_R:
     final_phonemes = FINAL_MAPPING_AFTER_ZH_CH_SH_R[pinyin_final]
   elif pinyin_initial in {"z", "c", "s"} and pinyin_final in FINAL_MAPPING_AFTER_Z_C_S:

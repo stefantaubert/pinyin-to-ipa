@@ -70,7 +70,7 @@ def parse_args(args: List[str], productive: bool = False):
   params = vars(received_args)
 
   if INVOKE_HANDLER_VAR in params:
-    invoke_handler: Callable[[ArgumentParser], None] = params.pop(INVOKE_HANDLER_VAR)
+    invoke_handler: Callable[[ArgumentParser], bool] = params.pop(INVOKE_HANDLER_VAR)
     success = invoke_handler(received_args)
     if success:
       sys.exit(0)

@@ -12,8 +12,8 @@ authors:
     affiliation: Chemnitz University of Technology
     orcid: 'https://orcid.org/0000-0002-4932-2874'
     website: 'https://stefantaubert.com'
-version: 0.0.1
-date-released: 2023-01-11
+version: 0.0.2
+date-released: 2024-02-09
 license: MIT
 url: https://github.com/stefantaubert/pinyin-to-ipa
 doi: 10.5281/zenodo.7524691
