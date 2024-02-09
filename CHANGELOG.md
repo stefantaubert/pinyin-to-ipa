@@ -7,12 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.2] - 2024-02-08
+## [0.0.2] - 2024-02-09
 
 ### Changed
 
 - update `pypinyin` dependency
 - added support for Python 3.12
+- added `mypy` support
 
 ## [0.0.1] - 2023-01-11
 
