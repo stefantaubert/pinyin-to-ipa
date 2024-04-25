@@ -2,6 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
 [![PyPI](https://img.shields.io/pypi/pyversions/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
+[![Hugging Face 🤗](https://img.shields.io/badge/%20%F0%9F%A4%97_Hugging_Face-pinyin--to--ipa-blue.svg)](https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa)
 [![MIT](https://img.shields.io/github/license/stefantaubert/pinyin-to-ipa.svg)](https://github.com/stefantaubert/pinyin-to-ipa/blob/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/wheel/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
 [![PyPI](https://img.shields.io/pypi/implementation/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
@@ -17,7 +18,15 @@ The tones are attached to the vowel of the syllable.
 pip install pinyin-to-ipa --user
 ```
 
-## Usage
+## Usage as web app
+
+Visit [🤗 Hugging Face](https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa) for a live demo.
+
+<a href="https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa">
+<img src="https://github.com/stefantaubert/pinyin-to-ipa/raw/master/img/gui.png" alt="Screenshot Hugging Face" style="max-width: 600px; width: 100%"/>
+</a>
+
+## Usage as CLI
 
 ```txt
 usage: pinyin-to-ipa-cli [-h] [-v] [--sep SEP] [--first] PINYIN
@@ -85,6 +94,7 @@ e
 ɤ
 i
 o
+ɔ
 u
 ʊ
 y
