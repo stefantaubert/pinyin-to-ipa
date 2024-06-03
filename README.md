@@ -69,7 +69,7 @@ $ pinyin-to-ipa-cli "test"
 No IPA transcription available!
 ```
 
-Usage as library:
+## Usage as library
 
 ```py
 from pinyin_to_ipa import pinyin_to_ipa
