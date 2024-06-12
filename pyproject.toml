@@ -64,6 +64,7 @@ include = [
 exclude = [
   "pinyin_to_ipa_tests",
   "pinyin_to_ipa_tests.*",
+  "pypinyin_tests.*",
   "pinyin_to_ipa_debug",
   "pinyin_to_ipa_debug.*",
 ]
@@ -72,7 +73,7 @@ namespaces = true
 [tool.pytest.ini_options]
 log_cli = true
 log_level = "DEBUG"
-testpaths = ["src/pinyin_to_ipa_tests"]
+testpaths = ["src/pinyin_to_ipa_tests", "src/pypinyin_tests"]
 
 [tool.autopep8]
 indent-size = 2

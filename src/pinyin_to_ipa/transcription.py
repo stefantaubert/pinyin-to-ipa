@@ -101,6 +101,7 @@ FINAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   "uen": [("w", "ə0", "n")],  # u̯ən
   "uang": [("w", "a0", "ŋ")],  # u̯ɑŋ
   "ueng": [("w", "ə0", "ŋ")],  # /
+  # see: https://en.wikipedia.org/wiki/Pinyin "Finals beginning with u- (w-)"
   "uo": [("w", "o0")],  # u̯ɔ
   # Normally uo is written as o after b, p, m, or f
   # other cases (lo, yo) also considered as [wo]
