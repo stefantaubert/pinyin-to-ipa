@@ -12,21 +12,33 @@
 Command-line interface (CLI) and Python library to transcribe pinyin to IPA.
 The tones are attached to the vowel of the syllable.
 
-## Installation
+## Getting started
+
+### Installation
 
 ```sh
 pip install pinyin-to-ipa --user
 ```
 
-## Usage as web app
+### Usage as web app
 
-Visit [🤗 Hugging Face](https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa) for a live demo.
+Start the web app from the command-line:
+
+```sh
+$ pinyin-to-ipa-app
+```
+
+Or visit [🤗 Hugging Face](https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa) for a live demo.
 
 <a href="https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa">
 <img src="https://github.com/stefantaubert/pinyin-to-ipa/raw/master/img/gui.png" alt="Screenshot Hugging Face" style="max-width: 600px; width: 100%"/>
 </a>
 
 ## Usage as CLI
+
+```sh
+$ pinyin-to-ipa-cli
+```
 
 ```txt
 usage: pinyin-to-ipa-cli [-h] [-v] [--sep SEP] [--first] PINYIN
@@ -43,7 +55,7 @@ optional arguments:
   --first        return only first result (default: False)
 ```
 
-### Example
+#### Example
 
 ```sh
 $ pinyin-to-ipa-cli "pang1" 
@@ -69,7 +81,7 @@ $ pinyin-to-ipa-cli "test"
 No IPA transcription available!
 ```
 
-## Usage as library
+### Usage as library
 
 ```py
 from pinyin_to_ipa import pinyin_to_ipa
@@ -81,70 +93,33 @@ print(pinyin_to_ipa("ng"))
 # OrderedSet([('ŋ',)])
 ```
 
-## Phoneme Set
+## Phoneme set
 
-Vowels:
-
-```txt
-a
-ɛ
-e
-ə
-ɚ
-ɤ
-i
-o
-ɔ
-u
-ʊ
-y
-```
-
-Diphthongs:
+### Vowels
 
 ```txt
-ai̯
-au̯
-aɚ̯¹
-ei̯
-ou̯
+a ɛ e ə ɚ ɤ i o ɔ u ʊ y 
 ```
 
-Consonants:
+### Diphthongs
 
 ```txt
-f
-h¹
-j
-k
-kʰ
-l
-m
-n
-p
-pʰ
-ɹ̩²
-ɻ²
-ɻ̩²
-s
-t
-ts
-tsʰ
-tɕ
-tɕʰ
-tʰ
-w
-x
-ŋ
-ɕ
-ɥ
-ʂ
-ʈʂ
-ʈʂʰ
-z̩¹²
-ʐ¹²
-ʐ̩¹²
+ai̯ au̯ aɚ̯¹ ei̯ ou̯ 
 ```
+
+¹ These phonemes are not included if only the first transcription is used.
+
+### Consonants
+
+```txt
+f h¹ j k kʰ l m n ŋ p pʰ ɹ̩² ɻ² ɻ̩² 
+s ʂ t tʰ ts tsʰ tɕ tɕʰ ʈʂ ʈʂʰ 
+w x ɕ ɥ z̩¹² ʐ¹² ʐ̩¹²
+```
+
+² These consonants contain also tones.
+
+### Tones
 
 Vowels and diphthongs contain one of these tones:
 
@@ -155,9 +130,6 @@ Vowels and diphthongs contain one of these tones:
 ˥˩ (fourth tone)
 (none)
 ```
-
-¹ These phonemes are not included if only the first transcription is used. \
-² These consonants contain also tones.
 
 ## References
 

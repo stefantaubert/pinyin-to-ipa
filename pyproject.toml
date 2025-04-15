@@ -45,6 +45,7 @@ dependencies = ["ordered-set>=4.1.0", "pypinyin>=0.54"]
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-cov", "pytest-xdist", "tox", "ruff", "mypy", "rope", "build", "twine"]
+hf = ["gradio"]
 
 [project.urls]
 Homepage = "https://github.com/stefantaubert/pinyin-to-ipa"
@@ -52,6 +53,7 @@ Issues = "https://github.com/stefantaubert/pinyin-to-ipa/issues"
 
 [project.scripts]
 pinyin-to-ipa-cli = "pinyin_to_ipa_cli.cli:run_prod"
+pinyin-to-ipa-app = "pinyin_to_ipa_hf.app:run_gradio_app"
 
 [tool.mypy]
 python_version = "3.13"
