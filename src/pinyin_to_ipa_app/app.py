@@ -5,7 +5,7 @@ from pinyin_to_ipa import pinyin_to_ipa
 # ri has 4 conversions
 
 
-def run_gradio_app() -> None:
+def run_gradio() -> None:
   interface = build_interface()
   interface.queue()
   interface.launch(
@@ -18,6 +18,7 @@ def run_gradio_app() -> None:
 
 
 def build_interface() -> gr.Blocks:
+  web_app: gr.Blocks
   with gr.Blocks(title="pinyin-to-ipa") as web_app:
     gr.Markdown(
       """
@@ -157,4 +158,4 @@ def synt(pinyin: str) -> str:
 
 
 if __name__ == "__main__":
-  run_gradio_app()
+  run_gradio()

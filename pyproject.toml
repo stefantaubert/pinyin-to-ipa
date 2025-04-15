@@ -4,7 +4,7 @@ version = "0.0.2"
 description = "Command-line interface (CLI) and Python library to transcribe pinyin to IPA."
 readme = "README.md"
 requires-python = ">=3.8, <3.14"
-license = { text = "MIT" }
+license = { file = "LICENSE" }
 authors = [{ name = "Stefan Taubert" }]
 maintainers = [
   { name = "Stefan Taubert" },
@@ -45,7 +45,7 @@ dependencies = ["ordered-set>=4.1.0", "pypinyin>=0.54"]
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-cov", "pytest-xdist", "tox", "ruff", "mypy", "rope", "build", "twine"]
-hf = ["gradio"]
+app = ["gradio"]
 
 [project.urls]
 Homepage = "https://github.com/stefantaubert/pinyin-to-ipa"
@@ -53,14 +53,14 @@ Issues = "https://github.com/stefantaubert/pinyin-to-ipa/issues"
 
 [project.scripts]
 pinyin-to-ipa-cli = "pinyin_to_ipa_cli.cli:run_prod"
-pinyin-to-ipa-app = "pinyin_to_ipa_hf.app:run_gradio_app"
+pinyin-to-ipa-app = "pinyin_to_ipa_app.app:run_gradio"
 
 [tool.mypy]
 python_version = "3.13"
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
-packages = ["pinyin_to_ipa", "pinyin_to_ipa_cli"]
+packages = ["pinyin_to_ipa", "pinyin_to_ipa_cli", "pinyin_to_ipa_app"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -69,6 +69,8 @@ include = [
   "pinyin_to_ipa.*",
   "pinyin_to_ipa_cli",
   "pinyin_to_ipa_cli.*",
+  "pinyin_to_ipa_app",
+  "pinyin_to_ipa_app.*",
 ]
 exclude = [
   "pinyin_to_ipa_tests",
@@ -88,7 +90,9 @@ testpaths = ["src/pinyin_to_ipa_tests", "src/pypinyin_tests"]
 src = [
   "src/pinyin_to_ipa", 
   "src/pinyin_to_ipa_cli",
+  "src/pinyin_to_ipa_app",
   "src/pinyin_to_ipa_tests",
+  "src/pypinyin_tests",
 ]
 line-length = 88
 indent-width = 2
@@ -121,10 +125,10 @@ select = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["pinyin_to_ipa*"]
+known-first-party = ["pinyin_to_ipa*", "pypinyin_tests"]
 
 [tool.ruff.lint.per-file-ignores]
-"src/pinyin_to_ipa_cli/**/*.py" = ["T201"]
+"src/pinyin_to_ipa_cli/**/*.py" = ["T201"] # print() is allowed in CLI
 
 [tool.tox]
 legacy_tox_ini = """
