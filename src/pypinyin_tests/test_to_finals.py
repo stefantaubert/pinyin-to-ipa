@@ -45,7 +45,7 @@ COMMON_FINALS = {
 }
 
 
-def test_get_finals_strict_returns_all_finals():
+def test_get_finals_strict_returns_all_finals() -> None:
   failed = OrderedSet()
   finials = []
   syllables = (
@@ -66,7 +66,7 @@ def test_get_finals_strict_returns_all_finals():
   assert result == set(_FINALS) | {""}
 
 
-def test_get_finals_non_strict_returns_all_finals():
+def test_get_finals_non_strict_returns_all_finals() -> None:
   failed = OrderedSet()
   finials = []
   syllables = (

@@ -9,8 +9,10 @@ from pypinyin.contrib.tone_convert import to_finals, to_initials, to_normal, to_
 # https://en.wikipedia.org/wiki/Standard_Chinese_phonology
 # https://en.wikipedia.org/wiki/Pinyin
 # https://de.wikipedia.org/wiki/Pinyin
-# Duanmu, San. 2007. The Phonology of Standard Chinese. 2nd ed. Oxford ; New York: Oxford University Press.
-# Lin, Yen-Hwei. 2007. The Sounds of Chinese. Cambridge, UK ; New York: Cambridge University Press.
+# - Duanmu, San. 2007. The Phonology of Standard Chinese. 2nd ed. Oxford ;
+# New York: Oxford University Press.
+# - Lin, Yen-Hwei. 2007. The Sounds of Chinese. Cambridge, UK ;
+# New York: Cambridge University Press.
 
 
 INITIAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
@@ -42,7 +44,9 @@ INITIAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
 
 INITIALS = INITIAL_MAPPING.keys()
 
-# Note: Syllabic consonants may also arise as a result of weak syllable reduction. Syllabic nasal consonants are also heard in certain interjections; pronunciations of such words include [m], [n], [ŋ], [hm], [hŋ].
+# Note: Syllabic consonants may also arise as a result of weak syllable reduction.
+# Syllabic nasal consonants are also heard in certain interjections;
+# pronunciations of such words include [m], [n], [ŋ], [hm], [hŋ].
 SYLLABIC_CONSONANT_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
   "hm": [("h", "m0")],
   "hng": [("h", "ŋ0")],
@@ -56,7 +60,10 @@ SYLLABIC_CONSONANTS = SYLLABIC_CONSONANT_MAPPINGS.keys()
 INTERJECTION_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
   "io": [("j", "ɔ0")],  # /
   "ê": [("ɛ0",)],  # /
-  # Note: In a small number of independent words or morphemes pronounced [ɚ] or [aɚ̯], written in pinyin as er (with some tone), such as 二 èr "two", 耳 ěr "ear", and 儿 (traditional 兒) ér "son". Similar to the sound in bar in English. Can also be pronounced [ɚ] depending on the speaker.
+  # Note: In a small number of independent words or morphemes pronounced [ɚ] or [aɚ̯],
+  # written in pinyin as er (with some tone), such as 二 èr "two", 耳 ěr "ear",
+  # and 儿 (traditional 兒) ér "son". Similar to the sound in bar in English.
+  # Can also be pronounced [ɚ] depending on the speaker.
   # Duanmu (2007, p. 40)
   "er": [("ɚ0",), ("aɚ̯0",)],  # ɑɻ
   "o": [("ɔ0",)],  # ɔ

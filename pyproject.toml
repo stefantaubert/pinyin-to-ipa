@@ -19,7 +19,7 @@ keywords = [
   "Linguistics",
 ]
 classifiers = [
-  "Development Status :: 2 - Pre-Alpha",
+  "Development Status :: 4 - Beta",
   "Operating System :: OS Independent",
   "Operating System :: MacOS",
   "Operating System :: POSIX",
@@ -34,7 +34,12 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "License :: OSI Approved :: MIT License",
+  "Topic :: Multimedia :: Sound/Audio",
+  "Topic :: Multimedia :: Sound/Audio :: Analysis",
+  "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
+  "Topic :: Multimedia :: Sound/Audio :: Speech",
 ]
 dependencies = ["ordered-set>=4.1.0", "pypinyin>=0.54"]
 
@@ -130,14 +135,14 @@ deps =
   ruff
 
 commands =
-  mypy
-  ruff check
   pinyin-to-ipa-cli
   pinyin-to-ipa-cli -v
   pytest -n auto \
     --cov=src/mel_cepstral_distance \
     --cov-append \
     --cov-report=
+  mypy
+  # ruff check
 """
 
 [build-system]

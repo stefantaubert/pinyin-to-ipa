@@ -35,7 +35,7 @@ COMMON_INITIALS = {
 }
 
 
-def test_get_initials_strict_returns_all_initials():
+def test_get_initials_strict_returns_all_initials() -> None:
   failed = OrderedSet()
   initials = []
   syllables = (
@@ -55,7 +55,7 @@ def test_get_initials_strict_returns_all_initials():
   assert result == set(_INITIALS) | {""}
 
 
-def test_get_initials_non_strict_returns_all_initials():
+def test_get_initials_non_strict_returns_all_initials() -> None:
   failed = OrderedSet()
   initials = []
   syllables = (
