@@ -1,3 +1,6 @@
+import pytest
+from _pytest.monkeypatch import MonkeyPatch
+
 from pinyin_to_ipa.transcription import get_initials
 
 
@@ -39,3 +42,15 @@ def test_buggy_pinyin__lün__raises_no_value_error() -> None:
 def test_invalid_pinyin__qqing__raises_no_value_error() -> None:
   result = get_initials("qqing")
   assert result == "q"
+
+
+def test_get_initials__unexpected_return_from_to_initials__raises_value_error(
+  monkeypatch: MonkeyPatch,
+) -> None:
+  def broken_to_initials(_: str, strict: bool = True) -> str:
+    return "xyz"
+
+  monkeypatch.setattr("pinyin_to_ipa.transcription.to_initials", broken_to_initials)
+
+  with pytest.raises(ValueError, match="Initial 'xyz' couldn't be detected"):
+    get_initials("ma")

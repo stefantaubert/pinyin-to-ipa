@@ -56,7 +56,7 @@ def test_get_finals_strict_returns_all_finals() -> None:
       pinyin_normal = to_normal(syllable, v_to_u=True)
       f = to_finals(pinyin_normal, strict=True, v_to_u=True)
       finials.append(f)
-    except ValueError:
+    except ValueError:  # noqa: PERF203
       failed.add(syllable)
   finals_count = Counter(finials)
   result = set(finals_count.keys())
@@ -77,7 +77,7 @@ def test_get_finals_non_strict_returns_all_finals() -> None:
       pinyin_normal = to_normal(syllable, v_to_u=True)
       f = to_finals(pinyin_normal, strict=False, v_to_u=True)
       finials.append(f)
-    except ValueError:
+    except ValueError:  # noqa: PERF203
       failed.add(syllable)
   finals_count = Counter(finials)
   result = set(finals_count.keys())

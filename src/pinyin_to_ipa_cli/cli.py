@@ -1,7 +1,7 @@
 import argparse
 import logging
 import sys
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from importlib.metadata import version
 from logging import getLogger
 from typing import Callable, Generator, List, Tuple
@@ -16,17 +16,21 @@ INVOKE_HANDLER_VAR = "invoke_handler"
 Parsers = Generator[Tuple[str, str, Callable], None, None]
 
 
-def formatter(prog):
+def formatter(prog: str) -> argparse.HelpFormatter:
   return argparse.ArgumentDefaultsHelpFormatter(prog, max_help_position=40)
 
 
-def _init_parser():
+def _init_parser() -> ArgumentParser:
   main_parser = ArgumentParser(formatter_class=formatter)
-  main_parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
+  main_parser.add_argument(
+    "-v", "--version", action="version", version="%(prog)s " + __version__
+  )
   method = get_app_try_add_vocabulary_from_pronunciations_parser(main_parser)
-  main_parser.set_defaults(**{
+  main_parser.set_defaults(
+    **{
       INVOKE_HANDLER_VAR: method,
-  })
+    }
+  )
 
   return main_parser
 
@@ -43,14 +47,14 @@ def configure_logger(productive: bool) -> None:
     main_logger.addHandler(console)
 
   logging_formatter = logging.Formatter(
-    '%(message)s',
-    '%Y/%m/%d %H:%M:%S',
+    "%(message)s",
+    "%Y/%m/%d %H:%M:%S",
   )
   console.setFormatter(logging_formatter)
   console.setLevel(loglevel)
 
 
-def parse_args(args: List[str], productive: bool = False):
+def parse_args(args: List[str], productive: bool = False) -> None:
   configure_logger(productive)
   logger = getLogger(__name__)
   logger.debug("Received args:")
@@ -70,7 +74,7 @@ def parse_args(args: List[str], productive: bool = False):
   params = vars(received_args)
 
   if INVOKE_HANDLER_VAR in params:
-    invoke_handler: Callable[[ArgumentParser], bool] = params.pop(INVOKE_HANDLER_VAR)
+    invoke_handler: Callable[[Namespace], bool] = params.pop(INVOKE_HANDLER_VAR)
     success = invoke_handler(received_args)
     if success:
       sys.exit(0)
@@ -79,12 +83,12 @@ def parse_args(args: List[str], productive: bool = False):
     parser.print_help()
 
 
-def run(productive: bool):
+def run(productive: bool) -> None:
   arguments = sys.argv[1:]
   parse_args(arguments, productive)
 
 
-def run_prod():
+def run_prod() -> None:
   run(True)
 
 

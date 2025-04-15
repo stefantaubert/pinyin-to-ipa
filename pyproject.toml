@@ -83,7 +83,11 @@ log_level = "DEBUG"
 testpaths = ["src/pinyin_to_ipa_tests", "src/pypinyin_tests"]
 
 [tool.ruff]
-src = ["src/pinyin_to_ipa"]
+src = [
+  "src/pinyin_to_ipa", 
+  "src/pinyin_to_ipa_cli",
+  "src/pinyin_to_ipa_tests",
+]
 line-length = 88
 indent-width = 2
 
@@ -117,6 +121,9 @@ select = [
 [tool.ruff.lint.isort]
 known-first-party = ["pinyin_to_ipa*"]
 
+[tool.ruff.lint.per-file-ignores]
+"src/pinyin_to_ipa_cli/**/*.py" = ["T201"]
+
 [tool.tox]
 legacy_tox_ini = """
 [tox]
@@ -138,11 +145,11 @@ commands =
   pinyin-to-ipa-cli
   pinyin-to-ipa-cli -v
   pytest -n auto \
-    --cov=src/mel_cepstral_distance \
+    --cov=src/pinyin_to_ipa \
     --cov-append \
     --cov-report=
   mypy
-  # ruff check
+  ruff check
 """
 
 [build-system]

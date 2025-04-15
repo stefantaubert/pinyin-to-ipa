@@ -46,7 +46,7 @@ def test_get_initials_strict_returns_all_initials() -> None:
       pinyin_normal = to_normal(syllable, v_to_u=True)
       i = to_initials(pinyin_normal, strict=True)
       initials.append(i)
-    except ValueError:
+    except ValueError:  # noqa: PERF203
       failed.add(syllable)
   initials_count = Counter(initials)
   result = set(initials_count.keys())
@@ -66,7 +66,7 @@ def test_get_initials_non_strict_returns_all_initials() -> None:
       pinyin_normal = to_normal(syllable, v_to_u=True)
       i = to_initials(pinyin_normal, strict=False)
       initials.append(i)
-    except ValueError:
+    except ValueError:  # noqa: PERF203
       failed.add(syllable)
   initials_count = Counter(initials)
   result = set(initials_count.keys())

@@ -1,3 +1,5 @@
+import pytest
+from _pytest.monkeypatch import MonkeyPatch
 from pytest import raises
 
 from pinyin_to_ipa.transcription import get_finals
@@ -7,21 +9,21 @@ def test_bcdfghklmnprstwz_u__returns_u() -> None:
   for c in "bcdfghklmnprstwz":
     result = get_finals(f"{c}u")
     if result != "u":
-      assert False
+      raise AssertionError()
 
 
 def test_bcdfghklmnprstwz_ü__returns_ü__is_fail() -> None:
   for c in "bcdfghklmnprstwz":
     result = get_finals(f"{c}ü")
     if result != "ü":
-      assert False
+      raise AssertionError()
 
 
 def test_bcdfghklmnprstwz_v__returns_ü__is_fail() -> None:
   for c in "bcdfghklmnprstwz":
     result = get_finals(f"{c}v")
     if result != "ü":
-      assert False
+      raise AssertionError()
 
 
 # region y/j/q/x + u/ue/uan/un (with u/v/ü)
@@ -197,3 +199,19 @@ def test_invalid_pinyin__raises_value_error() -> None:
   with raises(ValueError) as error:
     get_finals("zue")
   assert error.value.args[0] == "Parameter 'normal_pinyin': Final couldn't be detected!"
+
+
+def test_get_finals__unexpected_return_from_to_finals__raises_value_error(
+  monkeypatch: MonkeyPatch,
+) -> None:
+  def broken_to_finals(
+    _: str,
+    strict: bool = True,
+    v_to_u: bool = True,
+  ) -> str:
+    return "zzz"
+
+  monkeypatch.setattr("pinyin_to_ipa.transcription.to_finals", broken_to_finals)
+
+  with pytest.raises(ValueError, match="Final 'zzz' couldn't be detected"):
+    get_finals("ma")

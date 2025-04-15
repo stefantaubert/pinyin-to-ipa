@@ -1,14 +1,18 @@
 from argparse import ArgumentParser, Namespace
 from logging import getLogger
+from typing import Callable
 
 from pinyin_to_ipa import pinyin_to_ipa
 from pinyin_to_ipa_cli.argparse_helper import parse_non_empty_or_whitespace
 
 
-def get_app_try_add_vocabulary_from_pronunciations_parser(parser: ArgumentParser):
+def get_app_try_add_vocabulary_from_pronunciations_parser(
+  parser: ArgumentParser,
+) -> Callable[[Namespace], bool]:
   parser.description = "Command-line interface (CLI) to transcribe pinyin to IPA."
-  parser.add_argument("pinyin", metavar='PINYIN', type=parse_non_empty_or_whitespace,
-                      help="pinyin")
+  parser.add_argument(
+    "pinyin", metavar="PINYIN", type=parse_non_empty_or_whitespace, help="pinyin"
+  )
   parser.add_argument("--sep", type=str, help="separator between phonemes", default="")
   parser.add_argument("--first", action="store_true", help="return only first result")
   return get_pronunciations_files

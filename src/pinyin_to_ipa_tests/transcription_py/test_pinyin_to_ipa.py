@@ -9,12 +9,12 @@ from pinyin_to_ipa.transcription import pinyin_to_ipa
 
 
 def test_empty() -> None:
-  with raises(ValueError) as error:
+  with raises(ValueError):
     pinyin_to_ipa("")
 
 
 def test_whitespace() -> None:
-  with raises(ValueError) as error:
+  with raises(ValueError):
     pinyin_to_ipa(" ")
 
 
@@ -25,7 +25,7 @@ def test_non_pinyin_a__raises_value_error() -> None:
 
 
 def test_non_pinyin__raises_value_error() -> None:
-  with raises(ValueError) as error:
+  with raises(ValueError):
     pinyin_to_ipa("test")
 
 
