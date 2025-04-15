@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - GUI which is hosted on Hugging Face
 - Tests for `pypinyin`
+- Support for Python 3.13
+- Missing tests to cover 100 % of the code
 
 ### Bugfix
 
