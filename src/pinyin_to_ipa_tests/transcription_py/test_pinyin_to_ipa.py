@@ -128,7 +128,7 @@ def test_syllables_toneless__raise_no_error():
   for syllable in syllables:
     try:
       res = pinyin_to_ipa(syllable)
-    except ValueError as error:
+    except ValueError:
       failed.add(syllable)
     result.append((syllable, res))
   assert len(result) == len(syllables)
@@ -142,7 +142,7 @@ def test_possible_syllables__raise_no_error():
   for syllable in syllables:
     try:
       res = pinyin_to_ipa(syllable)
-    except ValueError as error:
+    except ValueError:
       failed.add(syllable)
     result.append((syllable, res))
   assert len(result) == len(syllables)

@@ -44,8 +44,8 @@ INITIALS = INITIAL_MAPPING.keys()
 
 # Note: Syllabic consonants may also arise as a result of weak syllable reduction. Syllabic nasal consonants are also heard in certain interjections; pronunciations of such words include [m], [n], [ŋ], [hm], [hŋ].
 SYLLABIC_CONSONANT_MAPPINGS: Dict[str, List[Tuple[str, ...]]] = {
-  "hm": [("h", "m0",)],
-  "hng": [("h", "ŋ0",)],
+  "hm": [("h", "m0")],
+  "hng": [("h", "ŋ0")],
   "m": [("m0",)],
   "n": [("n0",)],
   "ng": [("ŋ0",)],
@@ -106,7 +106,6 @@ FINAL_MAPPING: Dict[str, List[Tuple[str, ...]]] = {
   # Normally uo is written as o after b, p, m, or f
   # other cases (lo, yo) also considered as [wo]
   "o": [("w", "o0")],  # u̯ɔ
-
   # Note: Normally ü is written as u after j, q, or x
   #       (the /u/ phoneme never occurs in these positions)
   #       pypinyin returns u as ü after (y), j, q, or x
@@ -168,7 +167,9 @@ def get_tone(pinyin: str) -> int:
   try:
     tone_nr = int(tone_nr_str)
   except ValueError as error:
-    raise ValueError(f"Parameter 'pinyin': Tone '{tone_nr_str}' couldn't be detected!") from error
+    raise ValueError(
+      f"Parameter 'pinyin': Tone '{tone_nr_str}' couldn't be detected!"
+    ) from error
 
   # Note: in case to_tone3 returns other values than expected
   if tone_nr not in TONE_MAPPING:
@@ -204,7 +205,8 @@ def get_initials(normal_pinyin: str) -> Optional[str]:
   # in case pypinyin returns unexpected result
   if pinyin_initial not in INITIAL_MAPPING:
     raise ValueError(
-      f"Parameter 'normal_pinyin': Initial '{pinyin_initial}' couldn't be detected!")
+      f"Parameter 'normal_pinyin': Initial '{pinyin_initial}' couldn't be detected!"
+    )
 
   return pinyin_initial
 
@@ -223,17 +225,20 @@ def get_finals(normal_pinyin: str) -> Optional[str]:
 
   # in case pypinyin returns unexpected result
   if pinyin_final not in FINAL_MAPPING:
-    raise ValueError(f"Parameter 'normal_pinyin': Final '{pinyin_final}' couldn't be detected!")
+    raise ValueError(
+      f"Parameter 'normal_pinyin': Final '{pinyin_final}' couldn't be detected!"
+    )
 
   return pinyin_final
 
 
-def apply_tone(variants: List[Tuple[str, ...]], tone: int) -> Generator[Tuple[str, ...], None, None]:
+def apply_tone(
+  variants: List[Tuple[str, ...]], tone: int
+) -> Generator[Tuple[str, ...], None, None]:
   tone_ipa = TONE_MAPPING[tone]
   yield from (
-    tuple(phoneme.replace("0", tone_ipa) for phoneme in variant)
-    for variant in variants
-   )
+    tuple(phoneme.replace("0", tone_ipa) for phoneme in variant) for variant in variants
+  )
 
 
 def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
@@ -249,7 +254,9 @@ def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
   syllabic_consonant = get_syllabic_consonant(pinyin_normal)
   if syllabic_consonant is not None:
     syllabic_consonant_ipa_mapping = SYLLABIC_CONSONANT_MAPPINGS[syllabic_consonant]
-    syllabic_consonant_ipa = OrderedSet(apply_tone(syllabic_consonant_ipa_mapping, tone_nr))
+    syllabic_consonant_ipa = OrderedSet(
+      apply_tone(syllabic_consonant_ipa_mapping, tone_nr)
+    )
     return syllabic_consonant_ipa
 
   parts = []
@@ -262,7 +269,10 @@ def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
     parts.append(initial_phonemes)
 
   final_phonemes: List[Tuple[str, ...]]
-  if pinyin_initial in {"zh", "ch", "sh", "r"} and pinyin_final in FINAL_MAPPING_AFTER_ZH_CH_SH_R:
+  if (
+    pinyin_initial in {"zh", "ch", "sh", "r"}
+    and pinyin_final in FINAL_MAPPING_AFTER_ZH_CH_SH_R
+  ):
     final_phonemes = FINAL_MAPPING_AFTER_ZH_CH_SH_R[pinyin_final]
   elif pinyin_initial in {"z", "c", "s"} and pinyin_final in FINAL_MAPPING_AFTER_Z_C_S:
     final_phonemes = FINAL_MAPPING_AFTER_Z_C_S[pinyin_final]

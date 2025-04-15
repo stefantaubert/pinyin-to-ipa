@@ -3,11 +3,10 @@ name = "pinyin-to-ipa"
 version = "0.0.2"
 description = "Command-line interface (CLI) and Python library to transcribe pinyin to IPA."
 readme = "README.md"
-requires-python = ">=3.8, <3.13"
+requires-python = ">=3.8, <3.14"
 license = { text = "MIT" }
-authors = [{ email = "pypi@stefantaubert.com" }, { name = "Stefan Taubert" }]
+authors = [{ name = "Stefan Taubert" }]
 maintainers = [
-  { email = "pypi@stefantaubert.com" },
   { name = "Stefan Taubert" },
 ]
 keywords = [
@@ -37,7 +36,10 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "License :: OSI Approved :: MIT License",
 ]
-dependencies = ["ordered-set>=4.1.0", "pypinyin>=0.50"]
+dependencies = ["ordered-set>=4.1.0", "pypinyin>=0.54"]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "pytest-xdist", "tox", "ruff", "mypy", "rope", "build", "twine"]
 
 [project.urls]
 Homepage = "https://github.com/stefantaubert/pinyin-to-ipa"
@@ -47,7 +49,7 @@ Issues = "https://github.com/stefantaubert/pinyin-to-ipa/issues"
 pinyin-to-ipa-cli = "pinyin_to_ipa_cli.cli:run_prod"
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.13"
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
@@ -75,45 +77,67 @@ log_cli = true
 log_level = "DEBUG"
 testpaths = ["src/pinyin_to_ipa_tests", "src/pypinyin_tests"]
 
-[tool.autopep8]
-indent-size = 2
-ignore = ["E121"]
-max_line_length = 100
+[tool.ruff]
+src = ["src/pinyin_to_ipa"]
+line-length = 88
+indent-width = 2
 
-[tool.isort]
-line_length = 100
-indent = 2
-known_first_party = ["pinyin_to_ipa"]
-known_third_party = ["ordered_set", "pypinyin"]
+[tool.ruff.format]
+indent-style = "space"
 
-[tool.pyright]
-root = ["src"]
-include = ["src"]
-pythonPlatform = "All"
-typeCheckingMode = "off"
-stubPath = ""
-exclude = [
-  "**/node_modules",
-  "**/__pycache__",
-  ".git",
-  "**/*.egg-info",
-  "**/*_debug",
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    "C4",
+    "T20",
+    "PERF",
+    "ANN",
+    "TID",
+    "EXE", 
+    "W",
+    # "D",
 ]
-useLibraryCodeForTypes = true
+
+[tool.ruff.lint.isort]
+known-first-party = ["pinyin_to_ipa*"]
 
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{38,39,310,311,312}
-isolated_build = true
+envlist = py{38,39,310,311,312,313}
+isolated_build = True
 
 [testenv]
-deps = 
+setenv =
+  COVERAGE_FILE = .coverage.{envname}
+
+deps =
   pytest
-commands = 
-  pytest
+  pytest-cov
+  pytest-xdist
+  mypy
+  ruff
+
+commands =
+  mypy
+  ruff check
   pinyin-to-ipa-cli
   pinyin-to-ipa-cli -v
+  pytest -n auto \
+    --cov=src/mel_cepstral_distance \
+    --cov-append \
+    --cov-report=
 """
 
 [build-system]
