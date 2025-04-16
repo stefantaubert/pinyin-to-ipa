@@ -47,6 +47,7 @@ jobs:
           python -m twine check dist/*
 
       - name: Test install from sdist (.tar.gz)
+        shell: bash
         run: |
           python -m venv venv-sdist
           source venv-sdist/bin/activate
@@ -56,6 +57,7 @@ jobs:
           deactivate
 
       - name: Test install from wheel (.whl)
+        shell: bash
         run: |
           python -m venv venv-wheel
           source venv-wheel/bin/activate
