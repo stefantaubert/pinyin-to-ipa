@@ -250,14 +250,14 @@ def apply_tone(
 
 def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
   """
-  Convert a Pinyin string into its corresponding
+  Convert a Pinyin syllable into its corresponding
   International Phonetic Alphabet (IPA) transcription.
 
   Parameters
   ----------
   pinyin : str
-      A string representing the Pinyin input to be transcribed into IPA. The input
-      can include tone markers (e.g., "ma1", "zhong4").
+      A syllable representing the Pinyin input to be transcribed into IPA. The input
+      can include tone markers (e.g., "zhong", "zhōng", "zho1ng", "zhong1").
 
   Returns
   -------

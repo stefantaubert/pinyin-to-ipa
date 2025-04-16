@@ -1,7 +1,7 @@
 [project]
 name = "pinyin-to-ipa"
-version = "0.0.2"
-description = "Command-line interface (CLI) and Python library to transcribe pinyin to IPA."
+version = "1.0.0"
+description = "A Python library, web application, and command-line tool for transcribing Pinyin to IPA. Tone markers are attached to the vowel of each syllable."
 readme = "README.md"
 requires-python = ">=3.8, <3.14"
 license = { file = "LICENSE" }
@@ -10,16 +10,28 @@ maintainers = [
   { name = "Stefan Taubert" },
 ]
 keywords = [
-  "Pronunciation",
-  "Dictionary",
   "Chinese",
-  "IPA",
+  "Mandarin",
   "Pinyin",
+  "IPA",
+  "Phonetics",
+  "Phonology",
+  "Tone",
+  "Transcription",
   "Language",
   "Linguistics",
+  "Speech",
+  "Romanization",
+  "Language Learning",
+  "Natural Language Processing",
+  "Grapheme-to-Phoneme"
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Operating System :: MacOS",
   "Operating System :: POSIX",
@@ -35,11 +47,15 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
-  "License :: OSI Approved :: MIT License",
   "Topic :: Multimedia :: Sound/Audio",
   "Topic :: Multimedia :: Sound/Audio :: Analysis",
   "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
   "Topic :: Multimedia :: Sound/Audio :: Speech",
+  "Topic :: Text Processing :: Linguistic",
+  "Topic :: Scientific/Engineering :: Human Machine Interfaces",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Environment :: Console",
+  "Environment :: Web Environment"
 ]
 dependencies = ["ordered-set>=4.1.0", "pypinyin>=0.54"]
 

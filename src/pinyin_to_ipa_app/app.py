@@ -103,7 +103,7 @@ def build_interface() -> gr.Blocks:
 
         ### Citation
 
-        Taubert, S. (2024). pinyin-to-ipa (Version 0.0.2) [Computer software]. https://doi.org/10.5281/zenodo.10639971
+        Taubert, S. (2024). pinyin-to-ipa (Version 1.0.0) [Computer software]. https://doi.org/10.5281/zenodo.15229718
 
         ### References
 
@@ -124,7 +124,7 @@ def build_interface() -> gr.Blocks:
 
         ### App information
 
-        - Version: 0.0.2
+        - Version: 1.0.0
         - License: [MIT](https://github.com/stefantaubert/pinyin-to-ipa?tab=MIT-1-ov-file#readme)
         - GitHub: [stefantaubert/pinyin-to-ipa](https://github.com/stefantaubert/pinyin-to-ipa)
         """

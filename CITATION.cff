@@ -1,19 +1,18 @@
 cff-version: 1.2.0
 title: pinyin-to-ipa
-abstract: Command-line interface (CLI) and Python library to transcribe pinyin to IPA.
+abstract: A Python library, web application, and command-line tool for transcribing Pinyin to IPA. Tone markers are attached to the vowel of each syllable.
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
 type: software
 authors:
-  - email: github@stefantaubert.com
-    given-names: Stefan
+  - given-names: Stefan
     family-names: Taubert
     affiliation: Chemnitz University of Technology
     orcid: 'https://orcid.org/0000-0002-4932-2874'
     website: 'https://stefantaubert.com'
-version: 0.0.2
-date-released: 2024-02-09
+version: 1.0.0
+date-released: 2025-04-16
 license: MIT
 url: https://github.com/stefantaubert/pinyin-to-ipa
-doi: 10.5281/zenodo.10639971
+doi: 10.5281/zenodo.15229718

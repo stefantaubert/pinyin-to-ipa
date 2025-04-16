@@ -7,16 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2025-04-16
+
 ### Added
 
 - GUI which is hosted on Hugging Face
 - Tests for `pypinyin`
 - Support for Python 3.13
 - Missing tests to cover 100 % of the code
+- mypy support
+- ruff linting
 
 ### Bugfix
 
-- `ɔ` missed in the phoneme set
+- `ɔ` missed in the phoneme set in readme
+
+### Removed
+
+- Pipfile and Pipfile.lock
 
 ## [0.0.2] - 2024-02-09
 
@@ -30,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v0.0.2...HEAD
+[unreleased]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v0.0.2...v1.0.0
 [0.0.2]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/stefantaubert/pinyin-to-ipa/releases/tag/v0.0.1
