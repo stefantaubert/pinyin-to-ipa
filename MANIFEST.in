@@ -3,6 +3,7 @@ include res/most-syllables.txt
 include res/possible-syllables-tone3.txt
 
 graft src/pinyin_to_ipa_tests/
+graft src/pypinyin_tests/
 
 include \
   CHANGELOG.md \
