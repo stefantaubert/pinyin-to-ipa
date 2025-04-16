@@ -11,11 +11,8 @@ include \
   CITATION.cff \
   LICENSE \
   MANIFEST.in \
-  Pipfile \
-  Pipfile.lock \
   README.md \
-  pyproject.toml \
-  setup.cfg
+  pyproject.toml
 
 global-exclude \
   *~ \

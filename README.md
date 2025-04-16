@@ -8,7 +8,7 @@
 [![Hugging Face 🤗](https://img.shields.io/badge/%20%F0%9F%A4%97_Hugging_Face-pinyin--to--ipa-blue.svg)](https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10639971.svg)](https://doi.org/10.5281/zenodo.10639971)
 
-Command-line interface (CLI) and Python library to transcribe pinyin to IPA.
+Python library, web app, and command-line interface to transcribe pinyin to IPA.
 The tones are attached to the vowel of the syllable.
 
 ## Getting started
@@ -17,6 +17,18 @@ The tones are attached to the vowel of the syllable.
 
 ```sh
 pip install pinyin-to-ipa[app] --user
+```
+
+### Usage as library
+
+```py
+from pinyin_to_ipa import pinyin_to_ipa
+
+print(pinyin_to_ipa("hang4"))
+# OrderedSet([('x', 'a˥˩', 'ŋ'), ('h', 'a˥˩', 'ŋ')])
+
+print(pinyin_to_ipa("ng"))
+# OrderedSet([('ŋ',)])
 ```
 
 ### Usage as web app
@@ -78,18 +90,6 @@ $ pinyin-to-ipa-cli "hng"
 hŋ
 $ pinyin-to-ipa-cli "test" 
 No IPA transcription available!
-```
-
-### Usage as library
-
-```py
-from pinyin_to_ipa import pinyin_to_ipa
-
-print(pinyin_to_ipa("hang4"))
-# OrderedSet([('x', 'a˥˩', 'ŋ'), ('h', 'a˥˩', 'ŋ')])
-
-print(pinyin_to_ipa("ng"))
-# OrderedSet([('ŋ',)])
 ```
 
 ## Phoneme set

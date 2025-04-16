@@ -45,3 +45,20 @@ jobs:
         run: |
           python -m build -o dist/
           python -m twine check dist/*
+
+      - name: Test install from sdist (.tar.gz)
+        run: |
+          python -m venv venv-sdist
+          source venv-sdist/bin/activate
+          python -m uv pip install dist/*.tar.gz
+          python -c "import pinyin_to_ipa"
+          pytest -n auto
+          deactivate
+
+      - name: Test install from wheel (.whl)
+        run: |
+          python -m venv venv-wheel
+          source venv-wheel/bin/activate
+          python -m uv pip install dist/*.whl
+          python -c "import pinyin_to_ipa"
+          deactivate
