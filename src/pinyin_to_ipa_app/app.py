@@ -103,7 +103,7 @@ def build_interface() -> gr.Blocks:
 
         ### Citation
 
-        Taubert, S. (2024). pinyin-to-ipa (Version 1.0.0) [Computer software]. https://doi.org/10.5281/zenodo.15229718
+        Taubert, S. (2025). pinyin-to-ipa (Version 1.0.0) [Computer software]. https://doi.org/10.5281/zenodo.15229718
 
         ### References
 
