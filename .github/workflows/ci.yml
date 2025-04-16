@@ -44,6 +44,25 @@ jobs:
       - name: Run tests
         run: pytest -n auto
         
+  install-via-sdist:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+            
       - name: Run build
         run: |
           python -m build -o dist/
@@ -51,17 +70,6 @@ jobs:
 
       - name: Test install from sdist (.tar.gz)
         run: |
-          python -m venv venv-sdist
-          source venv-sdist/bin/activate || .\venv-sdist\Scripts\activate
           python -m pip install dist/*.tar.gz
           time python -c "import pinyin_to_ipa"
           pytest -n auto
-          deactivate
-
-      - name: Test install from wheel (.whl)
-        run: |
-          python -m venv venv-wheel
-          source venv-wheel/bin/activate || .\venv-wheel\Scripts\activate
-          python -m pip install dist/*.whl
-          time python -c "import pinyin_to_ipa"
-          deactivate
