@@ -52,12 +52,16 @@ jobs:
       - name: Test install from sdist (.tar.gz)
         run: |
           python -m venv venv-sdist
-          venv-sdist/bin/python -m pip install dist/*.tar.gz
-          venv-sdist/bin/python -c "import pinyin_to_ipa"
+          source venv-sdist/bin/activate || .\venv-sdist\Scripts\activate
+          python -m pip install dist/*.tar.gz
+          time python -c "import pinyin_to_ipa"
           pytest -n auto
+          deactivate
 
       - name: Test install from wheel (.whl)
         run: |
           python -m venv venv-wheel
-          venv-wheel/bin/python -m pip install dist/*.whl
-          venv-wheel/bin/python -c "import pinyin_to_ipa"
+          source venv-wheel/bin/activate || .\venv-wheel\Scripts\activate
+          python -m pip install dist/*.whl
+          time python -c "import pinyin_to_ipa"
+          deactivate
