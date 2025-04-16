@@ -249,6 +249,55 @@ def apply_tone(
 
 
 def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
+  """
+  Convert a Pinyin string into its corresponding
+  International Phonetic Alphabet (IPA) transcription.
+
+  Parameters
+  ----------
+  pinyin : str
+      A string representing the Pinyin input to be transcribed into IPA. The input
+      can include tone markers (e.g., "ma1", "zhong4").
+
+  Returns
+  -------
+  OrderedSet[Tuple[str, ...]]
+      A set of tuples, where each tuple represents a possible IPA transcription of
+      the input Pinyin. Each tuple contains phonemes as strings.
+
+  Raises
+  ------
+  ValueError
+      If the tone cannot be detected from the input or if the initial or final part
+      of the Pinyin cannot be mapped to IPA.
+
+  Notes
+  -----
+  - The function supports edge cases like interjections and syllabic consonants,
+    which are not strictly part of the initial-final structure.
+  - Tone markers are applied to the vowel or syllabic consonant of the syllable.
+  - Relies on the `pypinyin` library for splitting Pinyin into initials and finals.
+
+  Examples
+  --------
+  Convert a Pinyin string with a tone:
+
+  >>> result = pinyin_to_ipa("zhong4")
+  >>> print(result)
+  OrderedSet([('ʈʂ', 'ʊ˥˩', 'ŋ')])
+
+  Handle a syllabic consonant:
+
+  >>> result = pinyin_to_ipa("ng")
+  >>> print(result)
+  OrderedSet([('ŋ',)])
+
+  Process an interjection:
+
+  >>> result = pinyin_to_ipa("er")
+  >>> print(result)
+  OrderedSet([('ɚ',), ('aɚ̯',)])
+  """
   tone_nr = get_tone(pinyin)
   pinyin_normal = to_normal(pinyin)
 

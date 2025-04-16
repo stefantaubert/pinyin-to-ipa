@@ -1,12 +1,12 @@
 # pinyin-to-ipa
 
-[![PyPI](https://img.shields.io/pypi/v/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
+[![CI](https://github.com/stefantaubert/pinyin-to-ipa/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/stefantaubert/pinyin-to-ipa/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/github/stefantaubert/pinyin-to-ipa/branch/master/graph/badge.svg?token=DZ8LB2Q5I0)](https://codecov.io/github/stefantaubert/pinyin-to-ipa)
-[![Python versions](https://img.shields.io/pypi/pyversions/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
+[![PyPI](https://img.shields.io/pypi/v/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa)
+[![Python versions](https://img.shields.io/pypi/pyversions/pinyin-to-ipa.svg)](https://pypi.python.org/pypi/pinyin-to-ipa) \
 [![License: MIT](https://img.shields.io/github/license/stefantaubert/pinyin-to-ipa.svg)](https://github.com/stefantaubert/pinyin-to-ipa/blob/master/LICENSE)
 [![Hugging Face 🤗](https://img.shields.io/badge/%20%F0%9F%A4%97_Hugging_Face-pinyin--to--ipa-blue.svg)](https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10639971.svg)](https://doi.org/10.5281/zenodo.10639971)
-[![Actions status](https://github.com/stefantaubert/pinyin-to-ipa/workflows/CI/badge.svg)](https://github.com/stefantaubert/pinyin-to-ipa/actions)
 
 Command-line interface (CLI) and Python library to transcribe pinyin to IPA.
 The tones are attached to the vowel of the syllable.

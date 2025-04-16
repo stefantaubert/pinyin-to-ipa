@@ -9,10 +9,11 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
@@ -39,3 +40,8 @@ jobs:
 
       - name: Run tests
         run: pytest -n auto
+        
+      - name: Run build
+        run: |
+          python -m build -o dist/
+          python -m twine check dist/*
