@@ -297,6 +297,12 @@ def pinyin_to_ipa(pinyin: str) -> OrderedSet[Tuple[str, ...]]:
   >>> result = pinyin_to_ipa("er")
   >>> print(result)
   OrderedSet([('ɚ',), ('aɚ̯',)])
+
+  Pinyin with multiple possible IPA transcriptions:
+
+  >>> result = pinyin_to_ipa("zhi")
+  >>> print(result)
+  OrderedSet([('ʈʂ', 'ɻ̩'), ('ʈʂ', 'ʐ̩')])
   """
   tone_nr = get_tone(pinyin)
   pinyin_normal = to_normal(pinyin)
