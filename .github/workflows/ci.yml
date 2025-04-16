@@ -23,7 +23,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-
+          
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+        
       - name: Install dependencies
         run: |
           python -m pip install uv
@@ -47,20 +50,14 @@ jobs:
           python -m twine check dist/*
 
       - name: Test install from sdist (.tar.gz)
-        shell: bash
         run: |
           python -m venv venv-sdist
-          source venv-sdist/bin/activate
-          python -m pip install dist/*.tar.gz
-          time python -c "import pinyin_to_ipa"
+          venv-sdist/bin/python -m pip install dist/*.tar.gz
+          venv-sdist/bin/python -c "import pinyin_to_ipa"
           pytest -n auto
-          deactivate
 
       - name: Test install from wheel (.whl)
-        shell: bash
         run: |
           python -m venv venv-wheel
-          source venv-wheel/bin/activate
-          python -m pip install dist/*.whl
-          time python -c "import pinyin_to_ipa"
-          deactivate
+          venv-wheel/bin/python -m pip install dist/*.whl
+          venv-wheel/bin/python -c "import pinyin_to_ipa"
