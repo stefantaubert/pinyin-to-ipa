@@ -6,6 +6,7 @@
 [![License: MIT](https://img.shields.io/github/license/stefantaubert/pinyin-to-ipa.svg)](https://github.com/stefantaubert/pinyin-to-ipa/blob/master/LICENSE)
 [![Hugging Face 🤗](https://img.shields.io/badge/%20%F0%9F%A4%97_Hugging_Face-pinyin--to--ipa-blue.svg)](https://huggingface.co/spaces/stefantaubert/pinyin-to-ipa)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10639971.svg)](https://doi.org/10.5281/zenodo.10639971)
+[![Actions status](https://github.com/stefantaubert/pinyin-to-ipa/workflows/CI/badge.svg)](https://github.com/stefantaubert/pinyin-to-ipa/actions)
 
 Command-line interface (CLI) and Python library to transcribe pinyin to IPA.
 The tones are attached to the vowel of the syllable.
