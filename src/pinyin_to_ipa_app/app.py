@@ -10,7 +10,7 @@ def run_gradio() -> None:
   interface.queue()
   interface.launch(
     share=False,
-    debug=True,
+    debug=False,
     inbrowser=True,
     quiet=False,
     show_api=False,

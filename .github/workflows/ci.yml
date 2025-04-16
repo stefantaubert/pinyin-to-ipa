@@ -114,7 +114,7 @@ jobs:
       - name: Run build
         run: python -m build -o dist/
 
-      - name: Install from sdist (.tar.gz)
+      - name: Install from wheel (.whl)
         shell: bash
         run: |
           FILE=$(echo dist/*.whl)
