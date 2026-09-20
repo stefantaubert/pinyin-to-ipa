@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2026-09-20
+## [1.0.1] - 2026-09-20
 
 ### Added
 
@@ -44,7 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v0.0.2...v1.0.0
 [0.0.2]: https://github.com/stefantaubert/pinyin-to-ipa/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/stefantaubert/pinyin-to-ipa/releases/tag/v0.0.1
